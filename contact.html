@@ -2,39 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Contact - Abee's Candles</title>
+  <title>Contact Abee's Candles</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Navigation bar with logo -->
+  <nav class="navbar">
+    <img src="images/logo.png" alt="Abee's Candles Logo" class="site-logo">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
   <header>
-    <!-- Logo at the top -->
-    <img src="images/logo.png" alt="Abee's Candles Logo" class="logo">
-    <p>Light for Prayer and Reflection</p>
-    <nav>
-      <a href="index.html">Home</a>
-      <a href="shop.html">Shop</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
+    <h1>Contact Us</h1>
   </header>
 
+  <!-- Contact content -->
   <main>
-    <!-- Large Contact Us heading -->
-    <h1 class="contact-title">Contact Us</h1>
+    <section class="intro">
+      <h2>We’d Love to Hear From You</h2>
+      <p>
+        Whether you have questions about our candles, need help with an order, or simply want to share your thoughts, 
+        we’re here to listen.
+      </p>
+    </section>
 
-    <!-- Mailto form -->
-    <form action="mailto:reynoldsjiv@gmail.com" method="post" enctype="text/plain">
-      <label for="name">Name:</label><br>
-      <input type="text" id="name" name="name" required><br><br>
-
-      <label for="email">Email:</label><br>
-      <input type="email" id="email" name="email" required><br><br>
-
-      <label for="message">Message:</label><br>
-      <textarea id="message" name="message" rows="5" required></textarea><br><br>
-
-      <button type="submit">Send</button>
-    </form>
+    <section class="intro">
+      <h2>Get in Touch</h2>
+      <p>Email: <a href="mailto:reynoldsjiv.com">reynoldsjiv@gmail.com</a></p>
+      <p>Phone: (804)814-4563</p>
+      <p>Address: 10220 Gwynbrook, Richmond, VA</p>
+    </section>
   </main>
 </body>
 </html>

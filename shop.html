@@ -2,41 +2,43 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Shop - Abee's Candles</title>
+  <title>Abee's Candles Shop</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-  <img src="images/logo.png" alt="Abee's Candles Logo" class="logo">
-  <p>Light for Prayer and Reflection</p>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="shop.html">Shop</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
+  <!-- Navigation bar with logo -->
+  <nav class="navbar">
+    <img src="images/logo.png" alt="Abee's Candles Logo" class="site-logo">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html" class="active">Shop</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
   </nav>
-</header>
 
+  <!-- Header -->
+  <header>
+    <h1>Shop Abee's Candles</h1>
+  </header>
+
+  <!-- Shop grid -->
   <main>
-    <!-- Madonna -->
-    <div class="product-card">
-      <img src="images/madonna.jpeg" alt="Holy Family Candle">
-      <h3>Holy Family Candle</h3>
-      <p>$20.00</p>
-      <p>A devotional candle honoring the Holy Family, perfect for prayer and reflection.</p>
-      <button onclick="addToCart('holy-family')">Add to Cart</button>
-    </div>
+    <div class="shop-grid">
+      <div class="shop-item">
+        <img src="images/Madonna.jpeg" alt="Madonna Candle">
+        <h3>Madonna Candle</h3>
+        <p>Beautifully crafted candle honoring the Madonna.</p>
+        <button>Add to Cart</button>
+      </div>
 
-    <!-- Mary Candle -->
-    <div class="product-card">
-      <img src="images/mary.jpg" alt="Mary Candle">
-      <h3>Mary Candle</h3>
-      <p>$18.00</p>
-      <p>Hand-poured candle dedicated to the Blessed Virgin Mary, symbol of light and grace.</p>
-      <button onclick="addToCart('mary')">Add to Cart</button>
+      <div class="shop-item">
+        <img src="images/mary.jpeg" alt="Mary Candle">
+        <h3>Mary Candle</h3>
+        <p>Elegant candle featuring the Blessed Virgin Mary.</p>
+        <button>Add to Cart</button>
+      </div>
     </div>
   </main>
-
-  <script src="script.js"></script>
 </body>
 </html>

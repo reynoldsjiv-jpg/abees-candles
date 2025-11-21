@@ -2,111 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Abee's Candles Shop</title>
+  <title>Abee's Candles</title>
   <link rel="stylesheet" href="style.css">
-  <style>
-    /* Shop page styles */
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #fdfdfd;
-      color: #333;
-    }
-
-    header {
-      background: #f4e1d2;
-      padding: 20px;
-      text-align: center;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 2rem;
-    }
-
-    .shop-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-      padding: 40px;
-    }
-
-    .shop-item {
-      background: #fff;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      text-align: center;
-      width: 220px;
-      padding: 15px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
-    }
-
-    .shop-item:hover {
-      transform: scale(1.05);
-    }
-
-    .shop-item img {
-      width: 160px;   /* smaller image size */
-      height: auto;
-      border-radius: 6px;
-    }
-
-    .shop-item h3 {
-      margin: 10px 0 5px;
-      font-size: 1.1rem;
-    }
-
-    .shop-item p {
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    .shop-item button {
-      margin-top: 10px;
-      padding: 8px 12px;
-      background: #f4e1d2;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .shop-item button:hover {
-      background: #e2c7b8;
-    }
-  </style>
 </head>
 <body>
-  <header>
-    <h1>Shop Abee's Candles</h1>
+  <!-- Navigation bar with logo -->
+  <nav class="navbar">
+    <img src="images/logo.png" alt="Abee's Candles Logo" class="site-logo">
+    <ul>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero section -->
+  <header class="hero">
+    <h1>Welcome to Abee's Candles</h1>
+    <p>Handcrafted Catholic-themed candles, blending tradition with modern design.</p>
+    <a href="shop.html" class="cta-button">Shop Now</a>
   </header>
 
+  <!-- About section -->
   <main>
-    <div class="shop-grid">
-      <div class="shop-item">
-        <img src="images/madonna.jpeg" alt="Madonna">
-        <h3>Holy Family Candle</h3>
-        <p>A beautiful candle feachuring the Madonna and Child.</p>
-        <button>Add to Cart</button>
-      </div>
-
-      <div class="shop-item">
-        <img src="images/mary.jpg" alt="Mary Candle">
-        <h3>Mary Candle</h3>
-        <p>Elegant candle featuring the Blessed Virgin Mary.</p>
-        <button>Add to Cart</button>
-      </div>
-
-      <div class="shop-item">
-        <img src="images/logo.png" alt="Abee's Logo Candle">
-        <h3>Logo Candle</h3>
-        <p>Signature candle with Abee’s Candles logo design.</p>
-        <button>Add to Cart</button>
-      </div>
-    </div>
+    <section class="intro">
+      <h2>Our Mission</h2>
+      <p>
+        At Abee’s Candles, we create meaningful candles inspired by Catholic tradition. 
+        Each piece is designed with care, respect, and artistry to bring light and faith into your home.
+      </p>
+    </section>
   </main>
 </body>
 </html>
