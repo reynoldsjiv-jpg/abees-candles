@@ -1,0 +1,51 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #fff8e7;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #d4a373;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+nav a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.hero {
+  text-align: center;
+  padding: 50px;
+}
+
+.btn {
+  background: #6b4226;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+.product-card {
+  border: 1px solid #eee;
+  padding: 15px;
+  text-align: center;
+  width: 250px;
+  margin: 20px auto;
+}
+.logo {
+  width: 150px;   /* adjust size */
+  height: auto;   /* keeps proportions */
+  display: block;
+  margin: 0 auto; /* centers the logo */
+}
+.contact-title {
+  font-size: 36px;   /* makes it big */
+  text-align: center;
+  margin-bottom: 20px;
+  color: #6b4226;    /* matches your candle shop theme */
+}
