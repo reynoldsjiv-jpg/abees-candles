@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Navigation bar with logo -->
+  <!-- Navigation bar -->
   <nav class="navbar">
     <img src="images/logo.png" alt="Abee's Candles Logo" class="site-logo">
     <ul>
@@ -24,21 +24,38 @@
 
   <!-- Shop grid -->
   <main>
-    <div class="shop-grid">
+    <div class="shop-grid" id="shop-grid">
+      <!-- Product 1 -->
       <div class="shop-item">
         <img src="images/Madonna.jpeg" alt="Madonna Candle">
         <h3>Madonna Candle</h3>
         <p>Beautifully crafted candle honoring the Madonna.</p>
-        <button>Add to Cart</button>
+        <p class="price">$19.99</p>
+        <button class="add-to-cart" data-name="Madonna Candle" data-price="19.99">Add to Cart</button>
       </div>
 
+      <!-- Product 2 -->
       <div class="shop-item">
         <img src="images/mary.jpeg" alt="Mary Candle">
         <h3>Mary Candle</h3>
         <p>Elegant candle featuring the Blessed Virgin Mary.</p>
-        <button>Add to Cart</button>
+        <p class="price">$21.99</p>
+        <button class="add-to-cart" data-name="Mary Candle" data-price="21.99">Add to Cart</button>
       </div>
     </div>
+
+    <!-- Cart section -->
+    <section class="cart">
+      <h2>Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <p id="cart-total">Total: $0.00</p>
+      <button id="clear-cart">Clear Cart</button>
+      <button id="checkout-btn">Proceed to Checkout</button>
+    </section>
   </main>
+
+  <!-- Load scripts -->
+  <script src="script.js"></script>
+  <script src="cart.js"></script>
 </body>
 </html>
