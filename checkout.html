@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout - Abee's Candles</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Center the checkout section */
+    .checkout {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+    }
+
+    /* Limit button width for smaller appearance */
+    #paypal-button-container {
+      max-width: 250px; /* adjust size here */
+      width: 100%;
+    }
+
+    header {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    #order-total {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <img src="images/logo.png" alt="Abee's Candles Logo" class="site-logo">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="checkout.html" class="active">Checkout</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <h1>Checkout</h1>
+    <p id="order-total"></p>
+    <p>Select your payment method below:</p>
+  </header>
+
+  <!-- PayPal/Venmo/Card Buttons -->
+  <main class="checkout">
+    <div id="paypal-button-container"></div>
+  </main>
+
+  <!-- PayPal SDK with your real Client ID -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AeOjH_oxY9xLFcgLpxSXfSgEeKgGhaS5jY6QNx21qhT1n7PeGuCrurk1FOTN-r9jYUzRQ-2tPY__voyk&enable-funding=venmo&currency=USD"></script>
+
+  <script>
+    // Get cart total from localStorage
+    const total = localStorage.getItem("cartTotal") || "0.00";
+    document.getElementById("order-total").textContent = "Order Total: $" + total;
+
+    // Render PayPal Smart Buttons
+    paypal.Buttons({
+      style: {
+        layout: 'vertical',
+        color: 'gold',
+        shape: 'rect',
+        label: 'paypal',
+        height: 35 // smaller height
+      },
+      createOrder: (data, actions) => {
+        return actions.order.create({
+          purchase_units: [{
+            amount: { value: total }
+          }]
+        });
+      },
+      onApprove: (data, actions) => {
+        return actions.order.capture().then(details => {
+          alert('Transaction completed by ' + details.payer.name.given_name);
+          localStorage.removeItem("cartTotal"); // clear cart after purchase
+        });
+      },
+      onError: (err) => {
+        console.error(err);
+        alert("Something went wrong with the payment. Please try again.");
+      }
+    }).render('#paypal-button-container');
+  </script>
+</body>
+</html>
