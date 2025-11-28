@@ -98,3 +98,14 @@ header h1 { margin: 0; font-size: 4rem; }
   cursor: pointer;
 }
 #checkout-btn:hover { background: #45a049; }
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .shop-grid {
+    grid-template-columns: 1fr; /* single column on smaller screens */
+  }
+}
