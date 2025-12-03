@@ -14,7 +14,7 @@
 
     /* Limit button width for smaller appearance */
     #paypal-button-container {
-      max-width: 250px; /* adjust size here */
+      max-width: 250px;
       width: 100%;
     }
 
@@ -53,12 +53,23 @@
     <div id="paypal-button-container"></div>
   </main>
 
-  <script src="https://www.paypal.com/sdk/js?client-id=AVEviZ13Lr7f3cxhot-NoJ02NfJnbiA4XNqhCOXMFf3pkJnm7wIP2eI2Ot6vaEq7fmNLmK73jzIJb9f9"></script>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Abee's Candles. All rights reserved.</p>
+  </footer>
+
+  <!-- PayPal SDK -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AVEviZ13Lr7f3cxhot-NoJ02NfJnbiA4XNqhCOXMFf3pkJnm7wIP2eI2Ot6vaEq7fmNLmK73jzIJb9f9&components=buttons,funding-eligibility"></script>
 
   <script>
     // Get cart total from localStorage
     const total = localStorage.getItem("cartTotal") || "0.00";
     document.getElementById("order-total").textContent = "Order Total: $" + total;
+
+    // Prevent checkout if cart is empty
+    if (parseFloat(total) <= 0) {
+      document.getElementById("order-total").textContent = "Your cart is empty.";
+    }
 
     // Render PayPal Smart Buttons
     paypal.Buttons({
@@ -67,7 +78,7 @@
         color: 'gold',
         shape: 'rect',
         label: 'paypal',
-        height: 35 // smaller height
+        height: 40
       },
       createOrder: (data, actions) => {
         return actions.order.create({
@@ -78,8 +89,8 @@
       },
       onApprove: (data, actions) => {
         return actions.order.capture().then(details => {
-          alert('Transaction completed by ' + details.payer.name.given_name);
           localStorage.removeItem("cartTotal"); // clear cart after purchase
+          window.location.href = "thankyou.html"; // redirect to confirmation page
         });
       },
       onError: (err) => {

@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Navigation bar with logo -->
+  <!-- Navigation bar -->
   <nav class="navbar">
     <img src="images/logo.png" alt="Abee's Candles Logo" class="site-logo">
     <ul>
@@ -17,26 +17,63 @@
     </ul>
   </nav>
 
-  <!-- Header -->
+  <!-- Contact header -->
   <header>
-    <h1>Contact Us</h1>
+    <h1>Get in Touch</h1>
+    <p>We’d love to hear from you — whether you have questions, feedback, or special requests.</p>
   </header>
 
-  <!-- Contact content -->
+  <!-- Contact form -->
   <main>
-    <section class="intro">
-      <h2>We’d Love to Hear From You</h2>
-      <p>
-        Whether you have questions about our candles, need help with an order, or simply want to share your thoughts, 
-        we’re here to listen.
-      </p>
-    </section>
+    <section class="contact-form">
+      <form name="contact" method="POST" data-netlify="true">
+        <!-- Netlify honeypot for spam protection -->
+        <input type="hidden" name="form-name" value="contact">
+        <p style="display:none">
+          <label>Don’t fill this out if you’re human: <input name="bot-field"></label>
+        </p>
 
-    <section class="intro">
-      <h2>Get in Touch</h2>
-      <p>Email: <a href="mailto:reynoldsjiv.com">reynoldsjiv@gmail.com</a></p>
-      <p>Phone: (804)814-4563</p>
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+        <label for="message">Your Message</label>
+        <textarea id="message" name="message" rows="6" placeholder="Write your message here..." required></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+
+      <!-- Thank-you message (hidden until submission) -->
+      <div id="thankyou" style="display:none; margin-top:20px; text-align:center;">
+        <h2>Thank you!</h2>
+        <p>Your message has been sent. We’ll get back to you soon.</p>
+      </div>
     </section>
   </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Abee's Candles. All rights reserved.</p>
+  </footer>
+
+  <!-- Script to show thank-you message -->
+  <script>
+    const form = document.querySelector("form");
+    const thankyou = document.getElementById("thankyou");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      fetch("/", {
+        method: "POST",
+        body: data
+      }).then(() => {
+        form.style.display = "none";
+        thankyou.style.display = "block";
+      }).catch((error) => alert(error));
+    });
+  </script>
 </body>
 </html>
