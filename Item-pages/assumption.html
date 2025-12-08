@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Assumption Candle - Abee's Candles</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <!-- Navigation bar -->
+  <nav class="navbar">
+    <img src="../images/logo.png" alt="Abee's Candles Logo" class="site-logo">
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <h1>Assumption Candle</h1>
+  </header>
+
+  <!-- Product detail section -->
+  <main>
+    <div class="product-detail">
+      
+      <!-- Slideshow for multiple images -->
+      <div class="slideshow-container">
+        <div class="mySlides fade">
+          <img src="../images/assumption.png" class="slide-image" alt="Yellow Assumption Candle">
+        </div>
+        <div class="mySlides fade">
+          <img src="../images/blueassumption.png" class="slide-image" alt="Blue Assumption Candle">
+        </div>
+        <div class="mySlides fade">
+          <img src="../images/whiteassumption.png" class="slide-image" alt="White Assumption Candle">
+        </div>
+
+        <!-- Next/prev buttons -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+      </div>
+
+      <!-- Dots for navigation -->
+      <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+      </div>
+
+      <!-- Product info -->
+      <div class="product-info">
+        <h2>$7.99</h2>
+        <p>
+          A beautifully crafted candle honoring the Madonna. Perfect for prayer, reflection, or as a meaningful gift.
+        </p>
+        <ul>
+          <li>Note: Colors that are not White or Yellow May Vary From Image</li>
+          <li>Made with natural wax</li>
+          <li>Dimentions 5x9cm</li>
+          <li>Symbolic design inspired by Catholic tradition</li>
+        </ul>
+
+        <!-- Color selection -->
+        <label for="color">Choose a color:</label>
+        <select id="color" name="color">
+          <option value="white">White</option>
+          <option value="Yellow">Yellow</option>
+          <option value="Blue">Blue</option>
+        </select>
+
+        <!-- Add to Cart -->
+        <button class="add-to-cart" data-name="Mary Candle" data-price="7.99">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- Keep Shopping button above cart -->
+    <a href="../shop.html" class="keep-shopping-link">
+      <button id="keep-shopping-btn">Keep Shopping</button>
+    </a>
+
+    <!-- Cart section -->
+    <section class="cart">
+      <h2>Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <p id="cart-total">Total: $0.00</p>
+      <button id="clear-cart">Clear Cart</button>
+      <a href="../checkout.html" class="checkout-link">
+        <button id="checkout-btn">Proceed to Checkout</button>
+      </a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Abee's Candles. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../script.js"></script>
+  <script src="../cart.js"></script>
+
+  <!-- Slideshow script -->
+  <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+    }
+  </script>
+</body>
+</html>

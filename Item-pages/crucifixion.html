@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Crucifixion Candle - Abee's Candles</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <!-- Navigation bar -->
+  <nav class="navbar">
+    <img src="../images/logo.png" alt="Abee's Candles Logo" class="site-logo">
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <h1>Crucifixion Candle</h1>
+  </header>
+
+  <!-- Product detail section -->
+  <main>
+    <div class="product-detail">
+      <!-- Product image -->
+      <div class="product-image">
+        <img src="../images/crucifixion.png" class="slide-image" alt="Crucifixion Candle">
+      </div>
+
+      <!-- Product info -->
+      <div class="product-info">
+        <h2>$7.99</h2>
+        <p>
+          A beautifully crafted candle honoring the Crucifixion. Perfect for prayer, reflection, or as a meaningful gift.
+        </p>
+        <ul>
+          <li>Note: Colors that are not White or Yellow may vary from image</li>
+          <li>Made with natural wax</li>
+          <li>Dimensions 5x9cm</li>
+          <li>Symbolic design inspired by Catholic tradition</li>
+        </ul>
+
+        <!-- Color selection -->
+        <label for="color">Choose a color:</label>
+        <select id="color" name="color">
+          <option value="white">White</option>
+          <option value="yellow">Yellow</option>
+          <option value="blue">Blue</option>
+        </select>
+
+        <!-- Add to Cart -->
+        <button class="add-to-cart" data-name="Crucifixion Candle" data-price="7.99">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- Keep Shopping button above cart -->
+    <a href="../shop.html" id="keep-shopping-btn">Keep Shopping</a>
+
+    <!-- Cart section -->
+    <section class="cart">
+      <h2>Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <p id="cart-total">Total: $0.00</p>
+      <button id="clear-cart">Clear Cart</button>
+      <a href="../checkout.html" id="checkout-btn">Proceed to Checkout</a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Abee's Candles. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../script.js"></script>
+  <script src="../cart.js"></script>
+</body>
+</html>
