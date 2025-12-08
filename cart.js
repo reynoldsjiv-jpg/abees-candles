@@ -1,14 +1,17 @@
 // cart.js — handles cart functionality
 document.addEventListener("DOMContentLoaded", () => {
-  const cart = {};
+  // Load cart from localStorage, or start empty
+  let cart = JSON.parse(localStorage.getItem("cart")) || {};
+
   const cartItemsList = document.getElementById("cart-items");
   const cartTotal = document.getElementById("cart-total");
   const clearCartBtn = document.getElementById("clear-cart");
   const checkoutBtn = document.getElementById("checkout-btn");
-  const shopGrid = document.getElementById("shop-grid");
 
   // Update cart display
   function updateCart() {
+    if (!cartItemsList || !cartTotal) return; // skip if cart section not present
+
     cartItemsList.innerHTML = "";
     let total = 0;
 
@@ -22,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
       removeBtn.className = "remove-btn";
       removeBtn.addEventListener("click", () => {
         delete cart[name];
+        saveCart();
         updateCart();
       });
 
@@ -31,10 +35,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+    localStorage.setItem("cartTotal", total.toFixed(2));
   }
 
-  // Add to Cart
-  shopGrid.addEventListener("click", (e) => {
+  // Save cart to localStorage
+  function saveCart() {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
+  // Add to Cart — listen globally for any button with .add-to-cart
+  document.addEventListener("click", (e) => {
     const btn = e.target.closest(".add-to-cart");
     if (!btn) return;
 
@@ -46,27 +56,33 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       cart[name] = { price, quantity: 1 };
     }
+    saveCart();
     updateCart();
   });
 
   // Clear Cart
-  clearCartBtn.addEventListener("click", () => {
-    for (const key in cart) delete cart[key];
-    updateCart();
-  });
+  if (clearCartBtn) {
+    clearCartBtn.addEventListener("click", () => {
+      cart = {};
+      saveCart();
+      updateCart();
+    });
+  }
 
   // Checkout — calculate total and redirect
-  checkoutBtn.addEventListener("click", () => {
-    let total = 0;
-    Object.keys(cart).forEach((name) => {
-      const item = cart[name];
-      total += item.price * item.quantity;
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener("click", () => {
+      let total = 0;
+      Object.keys(cart).forEach((name) => {
+        const item = cart[name];
+        total += item.price * item.quantity;
+      });
+
+      localStorage.setItem("cartTotal", total.toFixed(2));
+      window.location.href = "checkout.html";
     });
+  }
 
-    // Save numeric total in localStorage
-    localStorage.setItem("cartTotal", total.toFixed(2));
-
-    // Redirect to checkout page
-    window.location.href = "checkout.html";
-  });
+  // Initialize cart display on page load
+  updateCart();
 });
