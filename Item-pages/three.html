@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Set of Three Candles - Abee's Candles</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    /* Consistent product image sizing */
+    .slide-image {
+      width: 300px;
+      height: 300px;
+      object-fit: contain; /* keep full image visible */
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* Slideshow container */
+    .slideshow-container {
+      position: relative;
+      max-width: 300px;
+      margin: 0 auto;
+      padding-top: 50px; /* space for buttons above */
+    }
+
+    /* Prev/Next buttons ABOVE the image */
+    .prev, .next {
+      position: absolute;
+      top: 0;             /* place buttons above the image */
+      color: #333;
+      font-weight: bold;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 8px;
+      transition: color 0.3s;
+      user-select: none;
+    }
+    .prev { left: 0; }
+    .next { right: 0; }
+    .prev:hover, .next:hover { color: #ffd700; }
+
+    /* Dots below slideshow */
+    .slideshow-dots {
+      text-align: center;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation bar -->
+  <nav class="navbar">
+    <img src="../images/logo.png" alt="Abee's Candles Logo" class="site-logo">
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <h1>Set of Three Candles</h1>
+  </header>
+
+  <!-- Product detail section -->
+  <main>
+    <div class="product-detail">
+      
+      <!-- Slideshow for multiple images -->
+      <div class="slideshow-container">
+        <!-- Next/prev buttons ABOVE -->
+        <a class="prev" onclick="plusSlides(-1)" aria-label="Previous slide">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)" aria-label="Next slide">&#10095;</a>
+
+        <div class="mySlides fade">
+          <img src="../images/three.png" class="slide-image" alt="Set of Three Candles">
+        </div>
+        <div class="mySlides fade">
+          <img src="../images/assumption.png" class="slide-image" alt="White Assumption Candle">
+        </div>
+        <div class="mySlides fade">
+          <img src="../images/cruxifixion.png" class="slide-image" alt="Crucifixion Candle">
+        </div>
+        <div class="mySlides fade">
+          <img src="../images/holyfamilysml.png" class="slide-image" alt="Holy Family Candle">
+        </div>
+      </div>
+
+      <!-- Dots for navigation -->
+      <div class="slideshow-dots">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+      </div>
+
+      <!-- Product info -->
+      <div class="product-info">
+        <h2>$19.99</h2>
+        <p>
+          A set of three beautiful candles depicting the Holy Family, the Assumption, and the Crucifixion. Perfect for prayer, reflection, or as a meaningful gift.
+        </p>
+        <ul>
+          <li>Note: Colors that are not White or Yellow may vary from image</li>
+          <li>Made with natural wax</li>
+          <li>Dimensions 5x9cm each</li>
+          <li>If you have any special requests in terms of color, please contact us on our contact page.</li>
+        </ul>
+
+        <!-- Color selection -->
+        <label for="color">Choose a color:</label>
+        <select id="color" name="color">
+          <option value="white">White</option>
+          <option value="yellow">Yellow</option>
+        </select>
+
+        <!-- Add to Cart -->
+        <button class="add-to-cart" data-name="Set of Three Candles" data-price="19.99">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- Keep Shopping button above cart -->
+    <a href="../shop.html" id="keep-shopping-btn">Keep Shopping</a>
+
+    <!-- Cart section -->
+    <section class="cart">
+      <h2>Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <p id="cart-total">Total: $0.00</p>
+      <button id="clear-cart">Clear Cart</button>
+      <a href="../checkout.html" id="checkout-btn">Proceed to Checkout</a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Abee's Candles. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../script.js"></script>
+  <script src="../cart.js"></script>
+
+  <!-- Slideshow script -->
+  <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+    }
+  </script>
+</body>
+</html>
