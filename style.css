@@ -433,3 +433,172 @@ footer {
   display: block;
   margin: 0 auto;
 }
+/* Sidebar cart */
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: -320px; /* hidden by default */
+  width: 300px;
+  height: 100%;
+  background: #fff;
+  box-shadow: -2px 0 6px rgba(0,0,0,0.2);
+  padding: 20px;
+  transition: right 0.3s ease;
+  z-index: 1000;
+}
+
+.cart-sidebar.open {
+  right: 0; /* slide in */
+}
+
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+.open-cart-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #ffd700;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+/* ---------- Cart control buttons ---------- */
+.cart-decrement,
+.cart-increment,
+.cart-remove,
+.add-to-cart {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: #ffffff;
+  color: #222;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .08s ease, box-shadow .12s ease, background .12s ease;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+}
+
+/* Primary Add to Cart appearance */
+.add-to-cart {
+  background: linear-gradient(180deg,#ffd966 0%, #ffb84d 100%);
+  border-color: rgba(0,0,0,0.06);
+  color: #111;
+  box-shadow: 0 6px 18px rgba(255,184,77,0.18);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+
+/* Small +/- controls inside sidebar */
+.cart-decrement,
+.cart-increment {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 6px;
+  background: #f6f6f6;
+  border: 1px solid #e6e6e6;
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* Remove button style */
+.cart-remove {
+  background: transparent;
+  color: #c0392b;
+  border: 1px dashed rgba(192,57,43,0.12);
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+/* Hover and active states */
+.add-to-cart:hover,
+.cart-decrement:hover,
+.cart-increment:hover,
+.cart-remove:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.add-to-cart:active,
+.cart-decrement:active,
+.cart-increment:active,
+.cart-remove:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+}
+
+/* Focus outlines for keyboard users */
+.add-to-cart:focus,
+.cart-decrement:focus,
+.cart-increment:focus,
+.cart-remove:focus,
+.open-cart-btn:focus,
+.close-btn:focus {
+  outline: 3px solid rgba(255,184,77,0.28);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Disabled state */
+.add-to-cart[disabled],
+.cart-decrement[disabled],
+.cart-increment[disabled],
+.cart-remove[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ---------- Floating cart toggle and close ---------- */
+.open-cart-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: linear-gradient(180deg,#ffd966,#ffb84d);
+  color: #111;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  cursor: pointer;
+  z-index: 999;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+/* Close button inside sidebar */
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  color: #444;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+/* Small responsive tweak */
+@media (max-width: 640px) {
+  .cart-sidebar { width: 100%; right: -100%; }
+  .cart-sidebar.open { right: 0; }
+  .open-cart-btn { right: 12px; bottom: 12px; padding: 10px 12px; }
+  .add-to-cart { width: 100%; box-sizing: border-box; }
+}

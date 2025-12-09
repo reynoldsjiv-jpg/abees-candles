@@ -4,6 +4,47 @@
   <meta charset="UTF-8">
   <title>Abee's Candles Shop</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Sidebar cart */
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: -320px; /* hidden by default */
+      width: 300px;
+      height: 100%;
+      background: #fff;
+      box-shadow: -2px 0 6px rgba(0,0,0,0.2);
+      padding: 20px;
+      transition: right 0.3s ease;
+      z-index: 1000;
+    }
+    .cart-sidebar.open {
+      right: 0; /* slide in */
+    }
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .open-cart-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ffd700;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      z-index: 999;
+    }
+  </style>
 </head>
 <body>
   <!-- Navigation bar -->
@@ -102,16 +143,22 @@
         <button class="add-to-cart" data-name="Assumption Candle" data-price="7.99">Add to Cart</button>
       </div>
     </div>
-
-    <!-- Cart section -->
-    <section class="cart">
-      <h2>Your Cart</h2>
-      <ul id="cart-items"></ul>
-      <p id="cart-total">Total: $0.00</p>
-      <button id="clear-cart">Clear Cart</button>
-      <button id="checkout-btn">Proceed to Checkout</button>
-    </section>
   </main>
+
+  <!-- Sidebar Cart -->
+  <aside id="cart-sidebar" class="cart-sidebar">
+    <div class="cart-header">
+      <h2>Your Cart</h2>
+      <button id="close-cart" class="close-btn">&times;</button>
+    </div>
+    <ul id="cart-items"></ul>
+    <p id="cart-total">Total: $0.00</p>
+    <button id="clear-cart">Clear Cart</button>
+    <button id="checkout-btn">Proceed to Checkout</button>
+  </aside>
+
+  <!-- Cart Toggle Button -->
+  <button id="open-cart" class="open-cart-btn">🛒 Cart</button>
 
   <!-- Footer -->
   <footer>
@@ -119,7 +166,21 @@
   </footer>
 
   <!-- Load scripts -->
-  <script src="script.js"></script>
   <script src="cart.js"></script>
+  <script>
+    // Sidebar toggle logic
+    const cartSidebar = document.getElementById("cart-sidebar");
+    const openCartBtn = document.getElementById("open-cart");
+    const closeCartBtn = document.getElementById("close-cart");
+
+    if (openCartBtn && closeCartBtn && cartSidebar) {
+      openCartBtn.addEventListener("click", () => {
+        cartSidebar.classList.add("open");
+      });
+      closeCartBtn.addEventListener("click", () => {
+        cartSidebar.classList.remove("open");
+      });
+    }
+  </script>
 </body>
 </html>

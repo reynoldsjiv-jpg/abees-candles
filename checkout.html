@@ -5,28 +5,28 @@
   <title>Checkout - Abee's Candles</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /* Center the checkout section */
     .checkout {
       display: flex;
       justify-content: center;
       margin-top: 40px;
     }
-
-    /* Limit button width for smaller appearance */
     #paypal-button-container {
       max-width: 250px;
       width: 100%;
     }
-
     header {
       text-align: center;
       margin-top: 21px;
     }
-
     #order-total {
       font-size: 1.2em;
       font-weight: bold;
       margin-bottom: 10px;
+    }
+    #order-items {
+      list-style: none;
+      padding: 0;
+      text-align: center;
     }
   </style>
 </head>
@@ -45,6 +45,7 @@
   <header>
     <h1>Checkout</h1>
     <p id="order-total"></p>
+    <ul id="order-items"></ul>
     <p>Select your payment method below:</p>
   </header>
 
@@ -59,19 +60,29 @@
   </footer>
 
   <!-- PayPal SDK -->
-  <script src="https://www.paypal.com/sdk/js?client-id=AVEviZ13Lr7f3cxhot-NoJ02NfJnbiA4XNqhCOXMFf3pkJnm7wIP2eI2Ot6vaEq7fmNLmK73jzIJb9f9&components=buttons,funding-eligibility"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AVEviZ13Lr7f3cxhot-NoJ02NfJnbiA4XNqhCOXMFf3pkJnm7wIP2eI2Ot6vaEq7fmNLmK73jzIJb9f9&currency=USD&components=buttons,funding-eligibility"></script>
 
   <script>
-    // Get cart total from localStorage
-    const total = localStorage.getItem("cartTotal") || "0.00";
-    document.getElementById("order-total").textContent = "Order Total: $" + total;
+    // Load cart from localStorage
+    const cart = JSON.parse(localStorage.getItem("cart")) || {};
+    let total = 0;
 
-    // Prevent checkout if cart is empty
-    if (parseFloat(total) <= 0) {
-      document.getElementById("order-total").textContent = "Your cart is empty.";
+    const orderItemsList = document.getElementById("order-items");
+    Object.keys(cart).forEach(name => {
+      const item = cart[name];
+      const li = document.createElement("li");
+      li.textContent = `${name} - $${item.price.toFixed(2)} (x${item.quantity})`;
+      orderItemsList.appendChild(li);
+      total += item.price * item.quantity;
+    });
+
+    const orderTotalEl = document.getElementById("order-total");
+    if (total > 0) {
+      orderTotalEl.textContent = "Order Total: $" + total.toFixed(2);
+    } else {
+      orderTotalEl.textContent = "Your cart is empty.";
     }
 
-    // Render PayPal Smart Buttons
     paypal.Buttons({
       style: {
         layout: 'vertical',
@@ -81,16 +92,34 @@
         height: 40
       },
       createOrder: (data, actions) => {
+        // Build items array for PayPal
+        const items = Object.keys(cart).map(name => {
+          const item = cart[name];
+          return {
+            name: name, // includes size + color from cart.js
+            unit_amount: { currency_code: "USD", value: item.price.toFixed(2) },
+            quantity: item.quantity
+          };
+        });
+
         return actions.order.create({
           purchase_units: [{
-            amount: { value: total }
+            amount: {
+              currency_code: "USD",
+              value: total.toFixed(2),
+              breakdown: {
+                item_total: { currency_code: "USD", value: total.toFixed(2) }
+              }
+            },
+            items: items
           }]
         });
       },
       onApprove: (data, actions) => {
         return actions.order.capture().then(details => {
-          localStorage.removeItem("cartTotal"); // clear cart after purchase
-          window.location.href = "thankyou.html"; // redirect to confirmation page
+          localStorage.removeItem("cart");
+          localStorage.removeItem("cartTotal");
+          window.location.href = "thankyou.html";
         });
       },
       onError: (err) => {

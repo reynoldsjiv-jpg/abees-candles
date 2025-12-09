@@ -1,88 +1,285 @@
-// cart.js — handles cart functionality
+// cart.js — sidebar cart logic with color tracking and grid color indicators
 document.addEventListener("DOMContentLoaded", () => {
-  // Load cart from localStorage, or start empty
+  // Load or initialize cart
   let cart = JSON.parse(localStorage.getItem("cart")) || {};
 
+  // DOM refs
   const cartItemsList = document.getElementById("cart-items");
-  const cartTotal = document.getElementById("cart-total");
+  const cartTotalEl = document.getElementById("cart-total");
   const clearCartBtn = document.getElementById("clear-cart");
   const checkoutBtn = document.getElementById("checkout-btn");
+  const cartSidebar = document.getElementById("cart-sidebar");
+  const openCartBtn = document.getElementById("open-cart");
+  const closeCartBtn = document.getElementById("close-cart");
 
-  // Update cart display
-  function updateCart() {
-    if (!cartItemsList || !cartTotal) return; // skip if cart section not present
-
-    cartItemsList.innerHTML = "";
-    let total = 0;
-
-    Object.keys(cart).forEach((name) => {
-      const item = cart[name];
-      const li = document.createElement("li");
-      li.textContent = `${name} - $${item.price.toFixed(2)} (x${item.quantity})`;
-
-      const removeBtn = document.createElement("button");
-      removeBtn.textContent = "Remove";
-      removeBtn.className = "remove-btn";
-      removeBtn.addEventListener("click", () => {
-        delete cart[name];
-        saveCart();
-        updateCart();
-      });
-
-      li.appendChild(removeBtn);
-      cartItemsList.appendChild(li);
-      total += item.price * item.quantity;
-    });
-
-    cartTotal.textContent = `Total: $${total.toFixed(2)}`;
-    localStorage.setItem("cartTotal", total.toFixed(2));
-  }
-
-  // Save cart to localStorage
+  /* Utilities */
   function saveCart() {
     localStorage.setItem("cart", JSON.stringify(cart));
   }
 
-  // Add to Cart — listen globally for any button with .add-to-cart
-  document.addEventListener("click", (e) => {
-    const btn = e.target.closest(".add-to-cart");
-    if (!btn) return;
+  function parsePrice(value) {
+    if (value == null) return NaN;
+    const cleaned = String(value).replace(/[^0-9.\-]/g, "");
+    const p = parseFloat(cleaned);
+    return Number.isFinite(p) ? p : NaN;
+  }
 
-    const name = btn.dataset.name;
-    const price = parseFloat(btn.dataset.price);
+  function normalizeName(name) {
+    if (!name) return "Item";
+    return name.replace(/\s*\(([^)]+)\)(\s*\(\1\))+/g, " ($1)");
+  }
 
-    if (cart[name]) {
-      cart[name].quantity += 1;
-    } else {
-      cart[name] = { price, quantity: 1 };
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  /* Render cart UI */
+  function updateCartUI() {
+    if (!cartItemsList || !cartTotalEl) return;
+    cartItemsList.innerHTML = "";
+    let total = 0;
+
+    Object.entries(cart).forEach(([name, item]) => {
+      const li = document.createElement("li");
+      li.className = "cart-item";
+      li.innerHTML = `
+        <div class="cart-item-row">
+          <span class="cart-item-name">${escapeHtml(name)}</span>
+          <span class="cart-item-meta">$${item.price.toFixed(2)} &times; ${item.quantity}</span>
+        </div>
+      `;
+
+      const controls = document.createElement("div");
+      controls.className = "cart-item-controls";
+
+      const dec = document.createElement("button");
+      dec.type = "button";
+      dec.className = "cart-decrement";
+      dec.textContent = "−";
+      dec.addEventListener("click", () => {
+        if (item.quantity > 1) {
+          item.quantity -= 1;
+        } else {
+          delete cart[name];
+        }
+        saveCart();
+        updateCartUI();
+      });
+
+      const inc = document.createElement("button");
+      inc.type = "button";
+      inc.className = "cart-increment";
+      inc.textContent = "+";
+      inc.addEventListener("click", () => {
+        item.quantity += 1;
+        saveCart();
+        updateCartUI();
+      });
+
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className = "cart-remove";
+      removeBtn.textContent = "Remove";
+      removeBtn.addEventListener("click", () => {
+        delete cart[name];
+        saveCart();
+        updateCartUI();
+      });
+
+      controls.appendChild(dec);
+      controls.appendChild(inc);
+      controls.appendChild(removeBtn);
+      li.appendChild(controls);
+
+      cartItemsList.appendChild(li);
+
+      total += item.price * item.quantity;
+    });
+
+    cartTotalEl.textContent = `Total: $${total.toFixed(2)}`;
+    localStorage.setItem("cartTotal", total.toFixed(2));
+  }
+
+  /* Repair existing cart data */
+  (function repairCart() {
+    let changed = false;
+    const entries = Object.entries(cart);
+    for (const [k, v] of entries) {
+      const p = parsePrice(v && v.price);
+      if (!Number.isFinite(p) || p <= 0) {
+        delete cart[k];
+        changed = true;
+        continue;
+      }
+      const normalized = normalizeName(k);
+      if (normalized !== k) {
+        cart[normalized] = { price: parseFloat(p.toFixed(2)), quantity: v.quantity || 1 };
+        delete cart[k];
+        changed = true;
+      } else {
+        cart[k].price = parseFloat(p.toFixed(2));
+        cart[k].quantity = v.quantity || 1;
+      }
     }
-    saveCart();
-    updateCart();
-  });
+    if (changed) saveCart();
+  })();
 
-  // Clear Cart
-  if (clearCartBtn) {
-    clearCartBtn.addEventListener("click", () => {
-      cart = {};
-      saveCart();
-      updateCart();
+  /* Find selects for a clicked button */
+  function findSelectsForButton(btn) {
+    let shopItem = btn.closest && btn.closest(".shop-item");
+    let sizeSelect = null;
+    let colorSelect = null;
+
+    if (shopItem) {
+      sizeSelect = shopItem.querySelector('select[name="size"], select.size, select#size');
+      colorSelect = shopItem.querySelector('select[name="color"], select.color, select#color');
+    }
+
+    if (!sizeSelect) sizeSelect = document.getElementById("size");
+    if (!colorSelect) colorSelect = document.getElementById("color");
+
+    return { sizeSelect, colorSelect };
+  }
+
+  /* Create color indicator in each .shop-item that has a color select */
+  function initColorIndicators() {
+    const shopItems = document.querySelectorAll(".shop-item");
+    shopItems.forEach(item => {
+      // skip if already has indicator
+      if (item.querySelector(".color-indicator")) return;
+
+      const colorSelect = item.querySelector('select[name="color"], select.color, select#color');
+      if (!colorSelect) return;
+
+      const indicator = document.createElement("span");
+      indicator.className = "color-indicator";
+      indicator.setAttribute("aria-hidden", "true");
+      // initial render
+      const sel = colorSelect.options[colorSelect.selectedIndex];
+      renderIndicator(indicator, sel && sel.value);
+
+      // update on change
+      colorSelect.addEventListener("change", () => {
+        const s = colorSelect.options[colorSelect.selectedIndex];
+        renderIndicator(indicator, s && s.value);
+      });
+
+      // insert indicator next to the add-to-cart button or title
+      const btn = item.querySelector(".add-to-cart");
+      if (btn) btn.parentNode.insertBefore(indicator, btn);
+      else item.appendChild(indicator);
     });
   }
 
-  // Checkout — calculate total and redirect
+  function renderIndicator(indicatorEl, colorValue) {
+    // colorValue can be a color name or hex; show text and swatch
+    indicatorEl.textContent = "";
+    const swatch = document.createElement("span");
+    swatch.className = "color-swatch";
+    // try to set background; if invalid, fallback to transparent border
+    swatch.style.background = colorValue || "transparent";
+    swatch.title = colorValue || "";
+    const label = document.createElement("span");
+    label.className = "color-label";
+    label.textContent = colorValue || "";
+    indicatorEl.appendChild(swatch);
+    indicatorEl.appendChild(label);
+  }
+
+  /* Add to cart logic with color tracking */
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest && e.target.closest(".add-to-cart");
+    if (!btn) return;
+
+    const baseName = btn.dataset.name || "Item";
+    let priceFromBtn = parsePrice(btn.dataset.price);
+
+    const { sizeSelect, colorSelect } = findSelectsForButton(btn);
+
+    let finalName = baseName;
+    let finalPrice = priceFromBtn;
+
+    const suffixParts = [];
+    if (sizeSelect) {
+      const selectedSize = sizeSelect.options[sizeSelect.selectedIndex];
+      const sizeText = selectedSize ? selectedSize.value : "";
+      const sizePrice = parsePrice(selectedSize && selectedSize.dataset && selectedSize.dataset.price);
+      if (Number.isFinite(sizePrice)) finalPrice = sizePrice;
+      if (sizeText) suffixParts.push(sizeText);
+    }
+
+    if (colorSelect) {
+      const selectedColor = colorSelect.options[colorSelect.selectedIndex];
+      const colorText = selectedColor ? selectedColor.value : "";
+      if (colorText) suffixParts.push(colorText);
+    }
+
+    if (suffixParts.length) {
+      finalName = `${baseName} (${suffixParts.join(", ")})`;
+    }
+
+    // Fallback: read .price near the button
+    if (!Number.isFinite(finalPrice)) {
+      const shopItem = btn.closest && btn.closest(".shop-item");
+      if (shopItem) {
+        const priceEl = shopItem.querySelector(".price");
+        if (priceEl) finalPrice = parsePrice(priceEl.textContent);
+      }
+    }
+
+    if (!Number.isFinite(finalPrice)) {
+      alert("Error: price not found for this item. Please select a size or contact support.");
+      return;
+    }
+
+    finalName = normalizeName(finalName);
+
+    if (cart[finalName]) {
+      cart[finalName].quantity += 1;
+    } else {
+      cart[finalName] = { price: parseFloat(finalPrice.toFixed(2)), quantity: 1 };
+    }
+
+    saveCart();
+    updateCartUI();
+
+    if (cartSidebar) cartSidebar.classList.add("open");
+  });
+
+  /* Clear / Checkout / Sidebar controls */
+  if (clearCartBtn) {
+    clearCartBtn.addEventListener("click", () => {
+      if (!confirm("Clear your cart?")) return;
+      cart = {};
+      saveCart();
+      updateCartUI();
+    });
+  }
+
   if (checkoutBtn) {
     checkoutBtn.addEventListener("click", () => {
       let total = 0;
-      Object.keys(cart).forEach((name) => {
-        const item = cart[name];
-        total += item.price * item.quantity;
-      });
-
+      Object.values(cart).forEach(item => total += item.price * item.quantity);
       localStorage.setItem("cartTotal", total.toFixed(2));
+      // Save snapshot for checkout page to read (line items)
+      localStorage.setItem("cartSnapshot", JSON.stringify(cart));
       window.location.href = "checkout.html";
     });
   }
 
-  // Initialize cart display on page load
-  updateCart();
+  if (openCartBtn && cartSidebar) {
+    openCartBtn.addEventListener("click", () => cartSidebar.classList.add("open"));
+  }
+  if (closeCartBtn && cartSidebar) {
+    closeCartBtn.addEventListener("click", () => cartSidebar.classList.remove("open"));
+  }
+
+  // Initialize
+  initColorIndicators();
+  updateCartUI();
 });
