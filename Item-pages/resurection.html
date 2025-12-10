@@ -1,9 +1,82 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Small Holy Family Candle - Abee's Candles</title>
-  <link rel="stylesheet" href="../style.css">
+  <meta charset="utf-8" />
+  <title>Resurrection Candle — Abee's Candles</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    /* Page helpers (keep main styling in ../style.css) */
+    .page-content { padding: 28px 20px; max-width: 1100px; margin: 0 auto; }
+    .product-detail { display: grid; grid-template-columns: 1fr 520px; gap: 28px; align-items: start; }
+    @media (max-width: 880px) { .product-detail { grid-template-columns: 1fr; } }
+
+    .slideshow-container {
+      background: var(--card-bg,#fff);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .mySlides { display:none; width:100%; height:100%; align-items:center; justify-content:center; }
+    .mySlides.active { display:flex; }
+
+    .slide-image {
+      width:100%;
+      max-width:760px;
+      height:auto;
+      border-radius:10px;
+      object-fit:contain;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      transition: transform .18s ease, box-shadow .18s ease;
+      cursor: zoom-in;
+    }
+    .slide-image:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,0.12); }
+
+    .prev, .next {
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      background: rgba(0,0,0,0.6);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:8px;
+      border:none;
+      cursor:pointer;
+      z-index:10;
+      font-size:18px;
+    }
+    .prev { left:14px; }
+    .next { right:14px; }
+
+    .slideshow-dots { text-align:center; margin-top:12px; }
+    .slideshow-dots .dot {
+      width:12px; height:12px; margin:6px; background:#e0e0e0; border-radius:50%; border:none; cursor:pointer;
+    }
+    .slideshow-dots .dot.active { background:var(--accent,#ffb84d); box-shadow:0 4px 10px rgba(0,0,0,0.08); }
+
+    .product-info { padding:18px; background:var(--card-bg,#fff); border-radius:8px; box-shadow:var(--card-shadow,0 6px 20px rgba(0,0,0,0.04)); }
+    .product-info h2 { margin-top:0; margin-bottom:12px; font-size:1.25rem; }
+    .product-info p, .product-info ul { color:var(--muted,#444); line-height:1.5; }
+
+    .selectors { display:flex; gap:12px; margin:12px 0; flex-wrap:wrap; }
+    select { padding:10px; border-radius:8px; border:1px solid #ddd; background:#fff; }
+
+    .actions { display:flex; gap:12px; align-items:center; margin-top:12px; }
+    .btn { padding:10px 14px; border-radius:8px; cursor:pointer; border: none; }
+    .btn-primary { background:var(--primary,#111); color:#fff; }
+    .btn-ghost { background:#fff; border:1px solid #ddd; color:var(--muted,#444); }
+
+    .lightbox { position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.75); z-index:2000; padding:20px; }
+    .lightbox.open { display:flex; }
+    .lightbox img { max-width:calc(100% - 80px); max-height:calc(100% - 80px); border-radius:10px; box-shadow:0 30px 80px rgba(0,0,0,0.6); cursor:zoom-out; }
+  </style>
 </head>
 <body>
   <!-- Navigation bar -->
@@ -17,64 +90,165 @@
     </ul>
   </nav>
 
-  <!-- Header -->
-  <header>
-    <h1>Resurection Candle</h1>
-  </header>
+  <main class="page-content">
+    <header style="margin-bottom:12px;">
+      <h1>Resurrection Candle</h1>
+    </header>
 
-  <!-- Product detail section -->
-  <main>
-    <div class="product-detail">
-      <!-- Product image -->
-      <div class="product-image">
-        <img src="../images/resurection.jpeg" class="slide-image" alt="Resurection Candle">
+    <section class="product-detail" aria-labelledby="product-title">
+      <!-- Slideshow (single image kept as a slide so JS/CSS remain consistent) -->
+      <div>
+        <div class="slideshow-container" aria-roledescription="carousel" aria-label="Product images">
+          <div class="mySlides">
+            <img src="../images/resurection.jpeg" class="slide-image" alt="Resurrection Candle">
+          </div>
+
+          <!-- Prev/Next controls (will be hidden automatically when only one slide exists) -->
+          <button class="prev" type="button" aria-label="Previous slide">&#10094;</button>
+          <button class="next" type="button" aria-label="Next slide">&#10095;</button>
+        </div>
+
+        <!-- Dots (will be hidden automatically when only one slide exists) -->
+        <div class="slideshow-dots" aria-hidden="false">
+          <button class="dot" type="button" aria-label="Go to slide 1"></button>
+        </div>
+
+        <!-- Lightbox for click-to-zoom -->
+        <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+          <img src="" alt="">
+        </div>
       </div>
 
       <!-- Product info -->
-      <div class="product-info">
-        <h2>$7.99</h2>
+      <aside class="product-info" aria-labelledby="product-title">
+        <h1 id="product-title" class="product-title" style="font-size:1.1rem;margin:0 0 8px 0;">Resurrection Candle</h1>
+        <h2 class="price">$14.99</h2>
+
         <p>
-          A beautifully crafted candle honoring the Resurection. Perfect for prayer, reflection, or as a meaningful gift.
+          A beautifully crafted candle honoring the Resurrection. Perfect for prayer, reflection, or as a meaningful gift.
         </p>
+
         <ul>
           <li>Note: Colors that are not White or Yellow may vary from image</li>
           <li>Made with natural wax</li>
-          <li>Dimensions 4x10.5x15cm</li>
-          <li>If you have any special requests in terms of color, please send us a message on our Contact Page</li>
+          <li>Dimensions: 4 × 10.5 × 15 cm</li>
+          <li>If you have special requests in terms of color, please contact us via the contact page</li>
         </ul>
 
-        <!-- Color selection -->
-        <label for="color">Choose a color:</label>
-        <select id="color" name="color">
-          <option value="white">White</option>
-          <option value="yellow">Yellow</option>
-        </select>
+        <div class="selectors" role="group" aria-label="Product options">
+          <div>
+            <label for="color">Choose a color</label><br>
+            <select id="color" name="color" aria-label="Select color">
+              <option value="White">White</option>
+              <option value="Yellow">Yellow</option>
+            </select>
+          </div>
+        </div>
 
-        <!-- Add to Cart -->
-        <button class="add-to-cart" data-name="Resurection Candle" data-price="14.99">Add to Cart</button>
-      </div>
-    </div>
+        <div class="actions">
+          <button class="btn btn-primary add-to-cart" id="add-to-cart" data-name="Resurrection Candle" data-price="14.99" aria-label="Add Resurrection Candle to cart">
+            Add to Cart
+          </button>
 
-    <!-- Keep Shopping button above cart -->
-    <a href="../shop.html" id="keep-shopping-btn">Keep Shopping</a>
+          <a href="../shop.html" class="btn btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">Keep Shopping</a>
+        </div>
+      </aside>
+    </section>
 
     <!-- Cart section -->
-    <section class="cart">
+    <section class="cart" style="margin-top:28px;">
       <h2>Your Cart</h2>
       <ul id="cart-items"></ul>
       <p id="cart-total">Total: $0.00</p>
       <button id="clear-cart">Clear Cart</button>
-      <a href="../checkout.html" id="checkout-btn">Proceed to Checkout</a>
+      <a href="../checkout.html" class="checkout-link">
+        <button id="checkout-btn">Proceed to Checkout</button>
+      </a>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer>
+  <footer style="padding:18px 0; text-align:center; color:var(--muted,#666);">
     <p>&copy; 2025 Abee's Candles. All rights reserved.</p>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Shared scripts -->
   <script src="../script.js"></script>
   <script src="../cart.js"></script>
+
+  <!-- Slideshow + lightbox + single-slide guard -->
+  <script>
+    (function () {
+      let slideIndex = 1;
+      const slides = () => Array.from(document.getElementsByClassName('mySlides'));
+      const dots = () => Array.from(document.getElementsByClassName('dot'));
+      const prevBtn = document.querySelector('.prev');
+      const nextBtn = document.querySelector('.next');
+      const dotsWrap = document.querySelector('.slideshow-dots');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+
+      function showSlides(n) {
+        const s = slides();
+        const d = dots();
+        if (!s.length) return;
+        if (n > s.length) slideIndex = 1;
+        if (n < 1) slideIndex = s.length;
+        s.forEach(sl => sl.classList.remove('active'));
+        d.forEach(dot => dot.classList.remove('active'));
+        s[slideIndex - 1].classList.add('active');
+        if (d[slideIndex - 1]) d[slideIndex - 1].classList.add('active');
+      }
+
+      function plusSlides(n) { slideIndex += n; showSlides(slideIndex); }
+      function currentSlide(n) { slideIndex = n; showSlides(slideIndex); }
+
+      // Expose for legacy inline handlers if any
+      window.plusSlides = plusSlides;
+      window.currentSlide = currentSlide;
+
+      document.addEventListener('DOMContentLoaded', function () {
+        const s = slides();
+        // If only one slide, hide controls and dots to avoid clutter
+        if (s.length <= 1) {
+          if (prevBtn) prevBtn.style.display = 'none';
+          if (nextBtn) nextBtn.style.display = 'none';
+          if (dotsWrap) dotsWrap.style.display = 'none';
+        }
+
+        // Wire controls (safe even if hidden)
+        if (prevBtn) prevBtn.addEventListener('click', () => plusSlides(-1));
+        if (nextBtn) nextBtn.addEventListener('click', () => plusSlides(1));
+        dots().forEach((dot, i) => dot.addEventListener('click', () => currentSlide(i + 1)));
+
+        // Click image to open lightbox
+        document.querySelectorAll('.slide-image').forEach(img => {
+          img.addEventListener('click', () => {
+            if (!lightbox || !lightboxImg) return;
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt || '';
+            lightbox.classList.add('open');
+          });
+        });
+
+        if (lightbox) lightbox.addEventListener('click', () => {
+          lightbox.classList.remove('open');
+          if (lightboxImg) lightboxImg.src = '';
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowLeft') plusSlides(-1);
+          if (e.key === 'ArrowRight') plusSlides(1);
+          if (e.key === 'Escape' && lightbox && lightbox.classList.contains('open')) {
+            lightbox.classList.remove('open');
+            if (lightboxImg) lightboxImg.src = '';
+          }
+        });
+
+        // Initialize slideshow
+        showSlides(slideIndex);
+      });
+    })();
+  </script>
 </body>
 </html>

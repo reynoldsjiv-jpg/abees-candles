@@ -283,3 +283,80 @@ document.addEventListener("DOMContentLoaded", () => {
   initColorIndicators();
   updateCartUI();
 });
+// --- Slideshow module (paste into cart.js) ---
+(function () {
+  let slideIndex = 1;
+
+  const slides = () => Array.from(document.getElementsByClassName('mySlides'));
+  const dots = () => Array.from(document.getElementsByClassName('dot'));
+  const prevBtn = () => document.querySelector('.prev');
+  const nextBtn = () => document.querySelector('.next');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+
+  function showSlides(n) {
+    const s = slides();
+    const d = dots();
+    if (!s.length) return;
+    if (n > s.length) slideIndex = 1;
+    if (n < 1) slideIndex = s.length;
+    s.forEach(sl => sl.style.display = 'none');
+    d.forEach(dot => dot.classList.remove('active'));
+    s[slideIndex - 1].style.display = 'flex';
+    if (d[slideIndex - 1]) d[slideIndex - 1].classList.add('active');
+  }
+
+  function plusSlides(n) {
+    slideIndex += n;
+    showSlides(slideIndex);
+  }
+
+  function currentSlide(n) {
+    slideIndex = n;
+    showSlides(slideIndex);
+  }
+
+  // Expose for legacy inline handlers if needed
+  window.plusSlides = plusSlides;
+  window.currentSlide = currentSlide;
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Wire prev/next
+    const p = prevBtn();
+    const nx = nextBtn();
+    if (p) p.addEventListener('click', () => plusSlides(-1));
+    if (nx) nx.addEventListener('click', () => plusSlides(1));
+
+    // Wire dots
+    dots().forEach((dot, i) => dot.addEventListener('click', () => currentSlide(i + 1)));
+
+    // Click image to open lightbox
+    document.querySelectorAll('.slide-image').forEach(img => {
+      img.addEventListener('click', () => {
+        if (!lightbox || !lightboxImg) return;
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt || '';
+        lightbox.classList.add('open');
+      });
+    });
+
+    // Lightbox close and keyboard navigation
+    if (lightbox) {
+      lightbox.addEventListener('click', () => {
+        lightbox.classList.remove('open');
+        if (lightboxImg) lightboxImg.src = '';
+      });
+    }
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') plusSlides(-1);
+      if (e.key === 'ArrowRight') plusSlides(1);
+      if (e.key === 'Escape' && lightbox && lightbox.classList.contains('open')) {
+        lightbox.classList.remove('open');
+        if (lightboxImg) lightboxImg.src = '';
+      }
+    });
+
+    // Initialize
+    showSlides(slideIndex);
+  });
+})();

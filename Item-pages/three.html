@@ -1,50 +1,88 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Set of Three Candles - Abee's Candles</title>
-  <link rel="stylesheet" href="../style.css">
+  <meta charset="utf-8" />
+  <title>Set of Three Candles — Abee's Candles</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="../style.css" />
   <style>
-    /* Consistent product image sizing */
-    .slide-image {
-      width: 300px;
-      height: 300px;
-      object-fit: contain; /* keep full image visible */
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-      display: block;
-      margin: 0 auto;
-    }
+    /* Page helpers (keep main styling in ../style.css) */
+    .page-content { padding: 28px 20px; max-width: 1100px; margin: 0 auto; }
+    .product-detail { display: grid; grid-template-columns: 1fr 520px; gap: 28px; align-items: start; }
+    @media (max-width: 880px) { .product-detail { grid-template-columns: 1fr; } }
 
-    /* Slideshow container */
+    /* Slideshow card */
     .slideshow-container {
+      background: var(--card-bg,#fff);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
       position: relative;
-      max-width: 300px;
+      overflow: hidden;
+      min-height: 360px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      max-width: 360px;
       margin: 0 auto;
-      padding-top: 50px; /* space for buttons above */
     }
 
-    /* Prev/Next buttons ABOVE the image */
+    /* Slide layout */
+    .mySlides { display:none; width:100%; height:100%; align-items:center; justify-content:center; }
+    .mySlides.active { display:flex; }
+
+    /* Image sizing and polish */
+    .slide-image {
+      width:100%;
+      max-width: 320px;
+      height: auto;
+      border-radius: 10px;
+      object-fit: contain;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      transition: transform .18s ease, box-shadow .18s ease;
+      cursor: zoom-in;
+      display:block;
+      margin:0 auto;
+    }
+    .slide-image:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,0.12); }
+
+    /* Prev/Next buttons above the image (keeps your layout) */
     .prev, .next {
-      position: absolute;
-      top: 0;             /* place buttons above the image */
+      position:absolute;
+      top:8px;
+      background: transparent;
       color: #333;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 20px;
       cursor: pointer;
       padding: 8px;
-      transition: color 0.3s;
+      border-radius:6px;
+      border: none;
+      transition: color .18s ease, background .18s ease;
       user-select: none;
+      z-index: 10;
     }
-    .prev { left: 0; }
-    .next { right: 0; }
-    .prev:hover, .next:hover { color: #ffd700; }
+    .prev { left: 12px; }
+    .next { right: 12px; }
+    .prev:hover, .next:hover { color: #ffd700; background: rgba(0,0,0,0.04); }
 
     /* Dots below slideshow */
-    .slideshow-dots {
-      text-align: center;
-      margin-top: 8px;
+    .slideshow-dots { text-align:center; margin-top:12px; }
+    .slideshow-dots .dot {
+      display:inline-block;
+      width:12px; height:12px; margin:6px; background:#e0e0e0; border-radius:50%; border:none; cursor:pointer;
     }
+    .slideshow-dots .dot.active { background:var(--accent,#ffb84d); box-shadow:0 4px 10px rgba(0,0,0,0.08); }
+
+    /* Product info */
+    .product-info { padding:18px; background:var(--card-bg,#fff); border-radius:8px; box-shadow:var(--card-shadow,0 6px 20px rgba(0,0,0,0.04)); }
+    .product-info h2 { margin-top:0; margin-bottom:12px; font-size:1.25rem; }
+    .product-info p, .product-info ul { color:var(--muted,#444); line-height:1.5; }
+
+    /* Lightbox */
+    .lightbox { position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.75); z-index:2000; padding:20px; }
+    .lightbox.open { display:flex; }
+    .lightbox img { max-width:calc(100% - 80px); max-height:calc(100% - 80px); border-radius:10px; box-shadow:0 30px 80px rgba(0,0,0,0.6); cursor:zoom-out; }
   </style>
 </head>
 <body>
@@ -59,118 +97,173 @@
     </ul>
   </nav>
 
-  <!-- Header -->
-  <header>
-    <h1>Set of Three Candles</h1>
-  </header>
+  <main class="page-content">
+    <header style="margin-bottom:12px;">
+      <h1>Set of Three Candles</h1>
+    </header>
 
-  <!-- Product detail section -->
-  <main>
-    <div class="product-detail">
-      
-      <!-- Slideshow for multiple images -->
-      <div class="slideshow-container">
-        <!-- Next/prev buttons ABOVE -->
-        <a class="prev" onclick="plusSlides(-1)" aria-label="Previous slide">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)" aria-label="Next slide">&#10095;</a>
+    <section class="product-detail" aria-labelledby="product-title">
+      <!-- Slideshow -->
+      <div>
+        <div class="slideshow-container" aria-roledescription="carousel" aria-label="Product images">
+          <!-- Prev/Next buttons ABOVE the image -->
+          <button class="prev" type="button" aria-label="Previous slide">&#10094;</button>
+          <button class="next" type="button" aria-label="Next slide">&#10095;</button>
 
-        <div class="mySlides fade">
-          <img src="../images/three.png" class="slide-image" alt="Set of Three Candles">
-        </div>
-        <div class="mySlides fade">
-          <img src="../images/assumption.png" class="slide-image" alt="White Assumption Candle">
-        </div>
-        <div class="mySlides fade">
-          <img src="../images/cruxifixion.png" class="slide-image" alt="Crucifixion Candle">
-        </div>
-        <div class="mySlides fade">
-          <img src="../images/holyfamilysml.png" class="slide-image" alt="Holy Family Candle">
-        </div>
-      </div>
+          <div class="mySlides">
+            <img src="../images/three.png" class="slide-image" alt="Set of Three Candles">
+          </div>
 
-      <!-- Dots for navigation -->
-      <div class="slideshow-dots">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-        <span class="dot" onclick="currentSlide(4)"></span>
+          <div class="mySlides">
+            <img src="../images/assumption.png" class="slide-image" alt="Assumption Candle">
+          </div>
+
+          <div class="mySlides">
+            <img src="../images/cruxifixion.png" class="slide-image" alt="Crucifixion Candle">
+          </div>
+
+          <div class="mySlides">
+            <img src="../images/holyfamilysml.png" class="slide-image" alt="Holy Family Candle">
+          </div>
+        </div>
+
+        <div class="slideshow-dots" aria-hidden="false">
+          <button class="dot" type="button" aria-label="Go to slide 1"></button>
+          <button class="dot" type="button" aria-label="Go to slide 2"></button>
+          <button class="dot" type="button" aria-label="Go to slide 3"></button>
+          <button class="dot" type="button" aria-label="Go to slide 4"></button>
+        </div>
+
+        <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+          <img src="" alt="">
+        </div>
       </div>
 
       <!-- Product info -->
-      <div class="product-info">
+      <aside class="product-info" aria-labelledby="product-title">
+        <h1 id="product-title" style="font-size:1.1rem;margin:0 0 8px 0;">Set of Three Candles</h1>
         <h2>$19.99</h2>
+
         <p>
           A set of three beautiful candles depicting the Holy Family, the Assumption, and the Crucifixion. Perfect for prayer, reflection, or as a meaningful gift.
         </p>
+
         <ul>
           <li>Note: Colors that are not White or Yellow may vary from image</li>
           <li>Made with natural wax</li>
-          <li>Dimensions 5x9cm each</li>
+          <li>Dimensions: 5 × 9 cm each</li>
           <li>If you have any special requests in terms of color, please contact us on our contact page.</li>
         </ul>
 
-        <!-- Color selection -->
-        <label for="color">Choose a color:</label>
-        <select id="color" name="color">
-          <option value="white">White</option>
-          <option value="yellow">Yellow</option>
-        </select>
+        <div style="margin-top:12px;">
+          <label for="color">Choose a color:</label><br>
+          <select id="color" name="color" style="padding:10px;border-radius:8px;border:1px solid #ddd;background:#fff;">
+            <option value="white">White</option>
+            <option value="yellow">Yellow</option>
+          </select>
+        </div>
 
-        <!-- Add to Cart -->
-        <button class="add-to-cart" data-name="Set of Three Candles" data-price="19.99">Add to Cart</button>
-      </div>
-    </div>
-
-    <!-- Keep Shopping button above cart -->
-    <a href="../shop.html" id="keep-shopping-btn">Keep Shopping</a>
+        <div style="margin-top:14px; display:flex; gap:12px; align-items:center;">
+          <button class="btn btn-primary add-to-cart" data-name="Set of Three Candles" data-price="19.99" style="padding:10px 14px;border-radius:8px;border:none;background:#111;color:#fff;cursor:pointer;">
+            Add to Cart
+          </button>
+          <a href="../shop.html" style="text-decoration:none; padding:10px 14px; border-radius:8px; border:1px solid #ddd; display:inline-flex; align-items:center; color:#444; background:#fff;">Keep Shopping</a>
+        </div>
+      </aside>
+    </section>
 
     <!-- Cart section -->
-    <section class="cart">
+    <section class="cart" style="margin-top:28px;">
       <h2>Your Cart</h2>
       <ul id="cart-items"></ul>
       <p id="cart-total">Total: $0.00</p>
       <button id="clear-cart">Clear Cart</button>
-      <a href="../checkout.html" id="checkout-btn">Proceed to Checkout</a>
+      <a href="../checkout.html" id="checkout-btn" style="margin-left:8px;">Proceed to Checkout</a>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer>
+  <footer style="padding:18px 0; text-align:center; color:var(--muted,#666);">
     <p>&copy; 2025 Abee's Candles. All rights reserved.</p>
   </footer>
 
-  <!-- Scripts -->
+  <!-- Shared scripts -->
   <script src="../script.js"></script>
   <script src="../cart.js"></script>
 
-  <!-- Slideshow script -->
+  <!-- Slideshow + lightbox (keeps controls above image) -->
   <script>
-    let slideIndex = 1;
-    showSlides(slideIndex);
+    (function () {
+      let slideIndex = 1;
+      const slides = () => Array.from(document.getElementsByClassName('mySlides'));
+      const dots = () => Array.from(document.getElementsByClassName('dot'));
+      const prevBtn = document.querySelector('.prev');
+      const nextBtn = document.querySelector('.next');
+      const dotsWrap = document.querySelector('.slideshow-dots');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
 
-    function plusSlides(n) {
-      showSlides(slideIndex += n);
-    }
-
-    function currentSlide(n) {
-      showSlides(slideIndex = n);
-    }
-
-    function showSlides(n) {
-      let i;
-      let slides = document.getElementsByClassName("mySlides");
-      let dots = document.getElementsByClassName("dot");
-      if (n > slides.length) {slideIndex = 1}
-      if (n < 1) {slideIndex = slides.length}
-      for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+      function showSlides(n) {
+        const s = slides();
+        const d = dots();
+        if (!s.length) return;
+        if (n > s.length) slideIndex = 1;
+        if (n < 1) slideIndex = s.length;
+        s.forEach(sl => sl.classList.remove('active'));
+        d.forEach(dot => dot.classList.remove('active'));
+        s[slideIndex - 1].classList.add('active');
+        if (d[slideIndex - 1]) d[slideIndex - 1].classList.add('active');
       }
-      for (i = 0; i < dots.length; i++) {
-        dots[i].className = dots[i].className.replace(" active", "");
-      }
-      slides[slideIndex-1].style.display = "block";
-      dots[slideIndex-1].className += " active";
-    }
+
+      function plusSlides(n) { slideIndex += n; showSlides(slideIndex); }
+      function currentSlide(n) { slideIndex = n; showSlides(slideIndex); }
+
+      // Expose for legacy inline handlers if any
+      window.plusSlides = plusSlides;
+      window.currentSlide = currentSlide;
+
+      document.addEventListener('DOMContentLoaded', function () {
+        // If only one slide, hide controls and dots
+        const s = slides();
+        if (s.length <= 1) {
+          if (prevBtn) prevBtn.style.display = 'none';
+          if (nextBtn) nextBtn.style.display = 'none';
+          if (dotsWrap) dotsWrap.style.display = 'none';
+        }
+
+        // Wire controls
+        if (prevBtn) prevBtn.addEventListener('click', () => plusSlides(-1));
+        if (nextBtn) nextBtn.addEventListener('click', () => plusSlides(1));
+        dots().forEach((dot, i) => dot.addEventListener('click', () => currentSlide(i + 1)));
+
+        // Click image to open lightbox
+        document.querySelectorAll('.slide-image').forEach(img => {
+          img.addEventListener('click', () => {
+            if (!lightbox || !lightboxImg) return;
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt || '';
+            lightbox.classList.add('open');
+          });
+        });
+
+        if (lightbox) lightbox.addEventListener('click', () => {
+          lightbox.classList.remove('open');
+          if (lightboxImg) lightboxImg.src = '';
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowLeft') plusSlides(-1);
+          if (e.key === 'ArrowRight') plusSlides(1);
+          if (e.key === 'Escape' && lightbox && lightbox.classList.contains('open')) {
+            lightbox.classList.remove('open');
+            if (lightboxImg) lightboxImg.src = '';
+          }
+        });
+
+        // Initialize slideshow
+        showSlides(slideIndex);
+      });
+    })();
   </script>
 </body>
 </html>

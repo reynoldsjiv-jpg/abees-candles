@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Christmas Tree Candle - Abee's Candles</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <!-- Navigation bar -->
+  <nav class="navbar">
+    <img src="../images/logo.png" alt="Abee's Candles Logo" class="site-logo">
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../shop.html">Shop</a></li>
+      <li><a href="../about.html">About</a></li>
+      <li><a href="../contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Header -->
+  <header>
+    <h1>Christmas Tree Candle</h1>
+  </header>
+
+  <!-- Product detail section -->
+  <main>
+    <div class="product-detail">
+      
+      <!-- Slideshow for multiple images -->
+      <div class="slideshow-container">
+        <div class="mySlides fade">
+          <img src="../images/forest.png" class="slide-image" alt="Christmas Tree Candle - Forest">
+        </div>
+        <div class="mySlides fade">
+          <img src="../images/largegreenchristmastree.png" class="slide-image" alt="Large Christmas Tree Candle - Light Green">
+        </div>
+        <div class="mySlides fade">
+          <img src="../images/darkgreenlargechristmastree.png" class="slide-image" alt="Large Christmas Tree Candle - Dark Green">
+        </div>
+        <div class="mySlides fade">
+          <img src="../images/largewhitechristmastree.png" class="slide-image" alt="Large Christmas Tree Candle - White">
+        </div>
+        <div class="mySlides fade">
+          <img src="../images/mediumgreenchristmastree.png" class="slide-image" alt="Medium Christmas Tree Candle - Light Green">
+        </div>
+        <div class="mySlides fade">
+          <img src="../images/mediumdarkgreenchristmastree.png" class="slide-image" alt="Medium Christmas Tree Candle - Dark Green">
+        </div>
+        <div class="mySlides fade">
+          <img src="../images/mediumwhitechristmastree.png" class="slide-image" alt="Medium Christmas Tree Candle - White">
+        </div>
+        <div class="mySlides fade">
+          <img src="../images/smallgreenchristmastree.png" class="slide-image" alt="Small Christmas Tree Candle - Light Green">
+        </div>
+        <div class="mySlides fade">
+          <img src="../images/smalldarkgreenchristmastree.png" class="slide-image" alt="Small Christmas Tree Candle - Dark Green">
+        </div>
+        <div class="mySlides fade">
+          <img src="../images/smallwhitechristmastree.png" class="slide-image" alt="Small Christmas Tree Candle - White">
+        </div>
+
+        <!-- Next/prev buttons -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+      </div>
+
+      <!-- Dots for navigation -->
+      <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+        <span class="dot" onclick="currentSlide(6)"></span>
+        <span class="dot" onclick="currentSlide(7)"></span>
+        <span class="dot" onclick="currentSlide(8)"></span>
+        <span class="dot" onclick="currentSlide(9)"></span>
+        <span class="dot" onclick="currentSlide(10)"></span>
+      </div>
+
+      <!-- Product info -->
+      <div class="product-info">
+        <h2>$3.99</h2>
+        <p>
+          Hand-poured Christmas Tree candle with detailed carving and a long, clean burn. Perfect for holiday décor and gifting.
+        </p>
+        <ul>
+          <li>Note: Colors may vary slightly from images</li>
+          <li>Made with natural wax</li>
+          <li>Dimensions: approx. 5 × 9 cm (small), 8 × 13 cm (medium), 8 × 17 cm (large)</li>
+          <li>If you have special requests in terms of color or size, please contact us on our contact page.</li>
+        </ul>
+
+        <!-- Size / Color selection -->
+        <label for="size">Choose a size:</label>
+        <select id="size" name="size">
+          <option value="Small" data-price="3.99">Small</option>
+          <option value="Medium" data-price="6.99">Medium</option>
+          <option value="Large" data-price="12.99">Large</option>
+        </select>
+
+        <label for="color">Choose a color:</label>
+        <select id="color" name="color">
+          <option value="Dark Green">Dark Green</option>
+          <option value="Light Green">Light Green</option>
+          <option value="White">White</option>
+        </select>
+
+        <!-- Add to Cart -->
+        <button class="add-to-cart" data-name="Christmas Tree Candle" data-price="3.99">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- Keep Shopping button above cart -->
+    <a href="../shop.html" class="keep-shopping-link">
+      <button id="keep-shopping-btn">Keep Shopping</button>
+    </a>
+
+    <!-- Cart section -->
+    <section class="cart">
+      <h2>Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <p id="cart-total">Total: $0.00</p>
+      <button id="clear-cart">Clear Cart</button>
+      <a href="../checkout.html" class="checkout-link">
+        <button id="checkout-btn">Proceed to Checkout</button>
+      </a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Abee's Candles. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="../script.js"></script>
+  <script src="../cart.js"></script>
+
+  <!-- Slideshow script -->
+  <script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+      let i;
+      let slides = document.getElementsByClassName("mySlides");
+      let dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {slideIndex = 1}
+      if (n < 1) {slideIndex = slides.length}
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex-1].style.display = "block";
+      dots[slideIndex-1].className += " active";
+    }
+
+    // Sync size selection with price
+    (function () {
+      const sizeSelect = document.getElementById('size');
+      const addToCartBtn = document.querySelector('.add-to-cart');
+      const priceEl = document.querySelector('.product-info h2');
+
+      function updatePriceFromSize() {
+        const opt = sizeSelect.options[sizeSelect.selectedIndex];
+        const price = opt && opt.dataset && opt.dataset.price ? parseFloat(opt.dataset.price) : NaN;
+        if (!isNaN(price)) {
+          priceEl.textContent = '$' + price.toFixed(2);
+          addToCartBtn.dataset.price = price.toFixed(2);
+        }
+      }
+
+      sizeSelect.addEventListener('change', updatePriceFromSize);
+      updatePriceFromSize();
+    })();
+  </script>
+</body>
+</html>
