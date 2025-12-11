@@ -1,23 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5MY5DL1KJB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5MY5DL1KJB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5MY5DL1KJB');
+  </script>
 
-  gtag('config', 'G-5MY5DL1KJB');
-</script>
-  <meta charset="UTF-8">
-  <title>Christmas Tree Candle - Abee's Candles</title>
-  <link rel="stylesheet" href="../style.css">
+  <meta charset="utf-8" />
+  <title>Christmas Tree Candle — Abee's Candles</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    .page-content { padding: 28px 20px; max-width: 1100px; margin: 0 auto; }
+    .product-detail { display: grid; grid-template-columns: 1fr 520px; gap: 28px; align-items: start; }
+    @media (max-width: 880px) { .product-detail { grid-template-columns: 1fr; } }
+
+    .slideshow-container {
+      background: var(--card-bg,#fff);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .mySlides { display:none; width:100%; height:100%; align-items:center; justify-content:center; }
+    .mySlides.active { display:flex; }
+
+    .slide-image {
+      width:100%;
+      max-width:760px;
+      height:auto;
+      border-radius:10px;
+      object-fit:contain;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      transition: transform .18s ease, box-shadow .18s ease;
+      cursor: zoom-in;
+    }
+    .slide-image:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,0.12); }
+
+    .prev, .next {
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      background: rgba(0,0,0,0.6);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:8px;
+      border:none;
+      cursor:pointer;
+      z-index:10;
+      font-size:18px;
+    }
+    .prev { left:14px; }
+    .next { right:14px; }
+
+    .slideshow-dots { text-align:center; margin-top:12px; }
+    .slideshow-dots .dot {
+      width:12px; height:12px; margin:6px;
+      background:#e0e0e0; border-radius:50%; cursor:pointer;
+    }
+    .slideshow-dots .dot.active { background:var(--accent,#ffb84d); }
+
+    .product-info {
+      padding:18px;
+      background:var(--card-bg,#fff);
+      border-radius:8px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.04);
+    }
+
+    .selectors { display:flex; gap:12px; margin:12px 0; flex-wrap:wrap; }
+    select { padding:10px; border-radius:8px; border:1px solid #ddd; background:#fff; }
+
+    .actions { display:flex; gap:12px; align-items:center; margin-top:12px; }
+    .btn { padding:10px 14px; border-radius:8px; cursor:pointer; border: none; }
+    .btn-primary { background:#111; color:#fff; }
+    .btn-ghost { background:#fff; border:1px solid #ddd; color:#444; }
+
+    .lightbox {
+      position:fixed; inset:0; display:none;
+      align-items:center; justify-content:center;
+      background:rgba(0,0,0,0.75);
+      z-index:2000; padding:20px;
+    }
+    .lightbox.open { display:flex; }
+    .lightbox img {
+      max-width:calc(100% - 80px);
+      max-height:calc(100% - 80px);
+      border-radius:10px;
+      box-shadow:0 30px 80px rgba(0,0,0,0.6);
+      cursor:zoom-out;
+    }
+  </style>
 </head>
+
 <body>
-  <!-- Navigation bar -->
+
+  <!-- ✅ FIXED NAVBAR -->
   <nav class="navbar">
     <img src="../images/logo.png" alt="Abee's Candles Logo" class="site-logo">
+
+    <!-- ✅ Search bar -->
+    <div class="search-bar">
+      <input type="search" id="searchInput" placeholder="Search candles...">
+      <button id="searchBtn">Search</button>
+
+      <!-- ✅ Correct dropdown container -->
+      <div id="searchResults" class="search-results-grid"></div>
+    </div>
+
+    <!-- ✅ Navigation links -->
     <ul>
       <li><a href="../index.html">Home</a></li>
       <li><a href="../shop.html">Shop</a></li>
@@ -26,125 +127,114 @@
     </ul>
   </nav>
 
-  <!-- Header -->
-  <header>
-    <h1>Christmas Tree Candle</h1>
-  </header>
+  <main class="page-content">
+    <header style="margin-bottom:12px;">
+      <h1>Christmas Tree Candle</h1>
+    </header>
 
-  <!-- Product detail section -->
-  <main>
-    <div class="product-detail">
-      
-      <!-- Slideshow for multiple images -->
-      <div class="slideshow-container">
-        <div class="mySlides fade">
-          <img src="../images/forest.png" class="slide-image" alt="Christmas Tree Candle - Forest">
-        </div>
-        <div class="mySlides fade">
-          <img src="../images/largegreenchristmastree.png" class="slide-image" alt="Large Christmas Tree Candle - Light Green">
-        </div>
-        <div class="mySlides fade">
-          <img src="../images/darkgreenlargechristmastree.png" class="slide-image" alt="Large Christmas Tree Candle - Dark Green">
-        </div>
-        <div class="mySlides fade">
-          <img src="../images/largewhitechristmastree.png" class="slide-image" alt="Large Christmas Tree Candle - White">
-        </div>
-        <div class="mySlides fade">
-          <img src="../images/mediumgreenchristmastree.png" class="slide-image" alt="Medium Christmas Tree Candle - Light Green">
-        </div>
-        <div class="mySlides fade">
-          <img src="../images/mediumdarkgreenchristmastree.png" class="slide-image" alt="Medium Christmas Tree Candle - Dark Green">
-        </div>
-        <div class="mySlides fade">
-          <img src="../images/mediumwhitechristmastree.png" class="slide-image" alt="Medium Christmas Tree Candle - White">
-        </div>
-        <div class="mySlides fade">
-          <img src="../images/smallgreenchristmastree.png" class="slide-image" alt="Small Christmas Tree Candle - Light Green">
-        </div>
-        <div class="mySlides fade">
-          <img src="../images/smalldarkgreenchristmastree.png" class="slide-image" alt="Small Christmas Tree Candle - Dark Green">
-        </div>
-        <div class="mySlides fade">
-          <img src="../images/smallwhitechristmastree.png" class="slide-image" alt="Small Christmas Tree Candle - White">
+    <section class="product-detail">
+
+      <!-- ✅ Slideshow -->
+      <div>
+        <div class="slideshow-container">
+
+          <div class="mySlides"><img src="../images/forest.png" class="slide-image"></div>
+          <div class="mySlides"><img src="../images/largegreenchristmastree.png" class="slide-image"></div>
+          <div class="mySlides"><img src="../images/darkgreenlargechristmastree.png" class="slide-image"></div>
+          <div class="mySlides"><img src="../images/largewhitechristmastree.png" class="slide-image"></div>
+          <div class="mySlides"><img src="../images/mediumgreenchristmastree.png" class="slide-image"></div>
+          <div class="mySlides"><img src="../images/mediumdarkgreenchristmastree.png" class="slide-image"></div>
+          <div class="mySlides"><img src="../images/mediumwhitechristmastree.png" class="slide-image"></div>
+          <div class="mySlides"><img src="../images/smallgreenchristmastree.png" class="slide-image"></div>
+          <div class="mySlides"><img src="../images/smalldarkgreenchristmastree.png" class="slide-image"></div>
+          <div class="mySlides"><img src="../images/smallwhitechristmastree.png" class="slide-image"></div>
+
+          <button class="prev">&#10094;</button>
+          <button class="next">&#10095;</button>
         </div>
 
-        <!-- Next/prev buttons -->
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        <div class="slideshow-dots">
+          <button class="dot"></button>
+          <button class="dot"></button>
+          <button class="dot"></button>
+          <button class="dot"></button>
+          <button class="dot"></button>
+          <button class="dot"></button>
+          <button class="dot"></button>
+          <button class="dot"></button>
+          <button class="dot"></button>
+          <button class="dot"></button>
+        </div>
+
+        <div id="lightbox" class="lightbox">
+          <img src="" alt="">
+        </div>
       </div>
 
-      <!-- Dots for navigation -->
-      <div style="text-align:center">
-        <span class="dot" onclick="currentSlide(1)"></span>
-        <span class="dot" onclick="currentSlide(2)"></span>
-        <span class="dot" onclick="currentSlide(3)"></span>
-        <span class="dot" onclick="currentSlide(4)"></span>
-        <span class="dot" onclick="currentSlide(5)"></span>
-        <span class="dot" onclick="currentSlide(6)"></span>
-        <span class="dot" onclick="currentSlide(7)"></span>
-        <span class="dot" onclick="currentSlide(8)"></span>
-        <span class="dot" onclick="currentSlide(9)"></span>
-        <span class="dot" onclick="currentSlide(10)"></span>
-      </div>
-
-      <!-- Product info -->
-      <div class="product-info">
+      <!-- ✅ Product info -->
+      <aside class="product-info">
+        <h1 style="font-size:1.1rem;margin:0 0 8px 0;">Christmas Tree Candle</h1>
         <h2>$3.99</h2>
-        <p>
-          Hand-poured Christmas Tree candle with detailed carving and a long, clean burn. Perfect for holiday décor and gifting.
-        </p>
+
+        <p>Hand‑poured Christmas Tree candle with detailed carving and a long, clean burn.</p>
+
         <ul>
-          <li>Note: Colors may vary slightly from images</li>
+          <li>Colors may vary slightly</li>
           <li>Made with natural wax</li>
-          <li>Dimensions: approx. 5 × 9 cm (small), 8 × 13 cm (medium), 8 × 17 cm (large)</li>
-          <li>If you have special requests in terms of color or size, please contact us on our contact page.</li>
+          <li>Sizes: Small, Medium, Large</li>
+          <li>Special requests? Contact us!</li>
         </ul>
 
-        <!-- Size / Color selection -->
-        <label for="size">Choose a size:</label>
-        <select id="size" name="size">
-          <option value="Small" data-price="3.99">Small</option>
-          <option value="Medium" data-price="6.99">Medium</option>
-          <option value="Large" data-price="12.99">Large</option>
-        </select>
+        <div class="selectors">
+          <div>
+            <label for="size">Choose a size</label><br>
+            <select id="size" name="size">
+              <option value="Small" data-price="3.99">Small</option>
+              <option value="Medium" data-price="6.99">Medium</option>
+              <option value="Large" data-price="12.99">Large</option>
+            </select>
+          </div>
 
-        <label for="color">Choose a color:</label>
-        <select id="color" name="color">
-          <option value="Dark Green">Dark Green</option>
-          <option value="Light Green">Light Green</option>
-          <option value="White">White</option>
-        </select>
+          <div>
+            <label for="color">Choose a color</label><br>
+            <select id="color" name="color">
+              <option value="Dark Green">Dark Green</option>
+              <option value="Light Green">Light Green</option>
+              <option value="White">White</option>
+            </select>
+          </div>
+        </div>
 
-        <!-- Add to Cart -->
-        <button class="add-to-cart" data-name="Christmas Tree Candle" data-price="3.99">Add to Cart</button>
-      </div>
-    </div>
+        <div class="actions">
+          <button class="btn btn-primary add-to-cart" data-name="Christmas Tree Candle" data-price="3.99">
+            Add to Cart
+          </button>
 
-    <!-- Keep Shopping button above cart -->
-    <a href="../shop.html" class="keep-shopping-link">
-      <button id="keep-shopping-btn">Keep Shopping</button>
-    </a>
+          <a href="../shop.html" class="btn btn-ghost">Keep Shopping</a>
+        </div>
+      </aside>
+    </section>
 
-    <!-- Cart section -->
-    <section class="cart">
+    <!-- ✅ Cart section -->
+    <section class="cart" style="margin-top:28px;">
       <h2>Your Cart</h2>
       <ul id="cart-items"></ul>
       <p id="cart-total">Total: $0.00</p>
       <button id="clear-cart">Clear Cart</button>
-      <a href="../checkout.html" class="checkout-link">
-        <button id="checkout-btn">Proceed to Checkout</button>
-      </a>
+      <a href="../checkout.html"><button id="checkout-btn">Proceed to Checkout</button></a>
     </section>
   </main>
 
-  <!-- Footer -->
-  <footer>
+  <footer style="padding:18px 0; text-align:center; color:#666;">
     <p>&copy; 2025 Abee's Candles. All rights reserved.</p>
   </footer>
 
-  <!-- Scripts -->
+  <!-- ✅ Shared scripts -->
   <script src="../script.js"></script>
   <script src="../cart.js"></script>
+
+</body>
+</html>
 
   <!-- Slideshow script -->
   <script>

@@ -2,17 +2,20 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5MY5DL1KJB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5MY5DL1KJB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5MY5DL1KJB');
+  </script>
 
-  gtag('config', 'G-5MY5DL1KJB');
-</script>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Abee's Candles</title>
+
   <link rel="stylesheet" href="style.css">
+
   <style>
     /* Page layout */
     body {
@@ -59,17 +62,29 @@
       max-width: 700px;
     }
 
-    /* Optional: subtle divider between sections */
     section.intro:not(:last-child) {
       border-bottom: 1px solid #ddd;
       padding-bottom: 30px;
     }
   </style>
 </head>
+
 <body>
-  <!-- Navigation bar with logo -->
+
+  <!-- ✅ NAVBAR -->
   <nav class="navbar">
     <img src="images/logo.png" alt="Abee's Candles Logo" class="site-logo">
+
+    <!-- ✅ Search bar -->
+    <div class="search-bar">
+      <input type="search" id="searchInput" placeholder="Search candles...">
+      <button id="searchBtn">Search</button>
+
+      <!-- ✅ Search dropdown -->
+      <div id="searchResults" class="search-results-grid"></div>
+    </div>
+
+    <!-- ✅ Navigation links -->
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="shop.html">Shop</a></li>
@@ -88,14 +103,14 @@
     <section class="intro">
       <h2>Our Story</h2>
       <p>
-        Abee’s Candles was founded with a mission to bring light, meaning, and beauty into everyday life. 
-        What began as a small creative project has grown into a space where tradition and artistry meet. 
-        We are inspired by the timeless symbolism of the flame — a reminder of hope, guidance, and presence — 
+        Abee’s Candles was founded with a mission to bring light, meaning, and beauty into everyday life.
+        What began as a small creative project has grown into a space where tradition and artistry meet.
+        We are inspired by the timeless symbolism of the flame — a reminder of hope, guidance, and presence —
         and we strive to carry that symbolism into each piece we create.
       </p>
       <p>
-        Our journey is rooted in respect for heritage and a desire to share something that feels both sacred and personal. 
-        Every candle is made with care, patience, and intention, so that it can serve not only as a source of light, 
+        Our journey is rooted in respect for heritage and a desire to share something that feels both sacred and personal.
+        Every candle is made with care, patience, and intention, so that it can serve not only as a source of light,
         but also as a companion in moments of reflection, prayer, and peace.
       </p>
     </section>
@@ -103,14 +118,14 @@
     <section class="intro">
       <h2>Our Values</h2>
       <p>
-        At Abee’s Candles, we believe in respect, creativity, and devotion. 
-        These values guide everything we do — from the way we design and craft our candles to the way we connect with our community. 
+        At Abee’s Candles, we believe in respect, creativity, and devotion.
+        These values guide everything we do — from the way we design and craft our candles to the way we connect with our community.
         We see our work as more than a craft; it is a way of sharing light and meaning with others.
       </p>
       <p>
-        We are committed to creating products that inspire reflection, gratitude, and serenity. 
-        Our candles are not just objects, but symbols of faith and tradition, designed to bring peace into everyday life. 
-        Whether placed in a home, given as a gift, or used in a moment of quiet devotion, 
+        We are committed to creating products that inspire reflection, gratitude, and serenity.
+        Our candles are not just objects, but symbols of faith and tradition, designed to bring peace into everyday life.
+        Whether placed in a home, given as a gift, or used in a moment of quiet devotion,
         they are meant to carry significance beyond their form.
       </p>
     </section>
@@ -118,15 +133,34 @@
     <section class="intro">
       <h2>Our Vision</h2>
       <p>
-        Our vision is to continue building a brand that honors tradition while embracing modern design. 
-        We want every customer to feel that they are part of something meaningful when they choose Abee’s Candles. 
+        Our vision is to continue building a brand that honors tradition while embracing modern design.
+        We want every customer to feel that they are part of something meaningful when they choose Abee’s Candles.
         It is about more than a purchase — it is about joining a tradition of light, carrying forward a symbol that has guided and uplifted people for centuries.
       </p>
       <p>
-        Looking ahead, we envision Abee’s Candles as a beacon of light and meaning in a busy world. We aim to continue crafting candles that not only illuminate spaces but also hearts and minds. Through our work, we hope to foster a deeper appreciation for the simple yet profound act of lighting a candle, a gesture that transcends time and culture, bringing people together in shared moments of peace and reflection.
-
+        Looking ahead, we envision Abee’s Candles as a beacon of light and meaning in a busy world.
+        We aim to continue crafting candles that not only illuminate spaces but also hearts and minds.
+        Through our work, we hope to foster a deeper appreciation for the simple yet profound act of lighting a candle —
+        a gesture that transcends time and culture, bringing people together in shared moments of peace and reflection.
       </p>
     </section>
   </main>
+
+  <!-- ✅ Load search script -->
+  <script src="script.js"></script>
+
+  <!-- ✅ Click-outside to close search dropdown -->
+  <script>
+    document.addEventListener("click", function (event) {
+      const searchBar = document.querySelector(".search-bar");
+      const results = document.getElementById("searchResults");
+
+      if (!searchBar.contains(event.target)) {
+        results.innerHTML = "";
+        results.style.display = "none";
+      }
+    });
+  </script>
+
 </body>
 </html>

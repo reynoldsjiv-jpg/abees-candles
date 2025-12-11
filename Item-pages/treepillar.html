@@ -11,17 +11,15 @@
   </script>
 
   <meta charset="utf-8" />
-  <title>Set of Three Candles — Abee's Candles</title>
+  <title>Tree Pillar Candle — Abee's Candles</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="stylesheet" href="../style.css" />
 
   <style>
-    /* Page helpers */
     .page-content { padding: 28px 20px; max-width: 1100px; margin: 0 auto; }
     .product-detail { display: grid; grid-template-columns: 1fr 520px; gap: 28px; align-items: start; }
     @media (max-width: 880px) { .product-detail { grid-template-columns: 1fr; } }
 
-    /* Slideshow card */
     .slideshow-container {
       background: var(--card-bg,#fff);
       border-radius: 12px;
@@ -29,12 +27,10 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.06);
       position: relative;
       overflow: hidden;
-      min-height: 360px;
+      min-height: 420px;
       display:flex;
       align-items:center;
       justify-content:center;
-      max-width: 360px;
-      margin: 0 auto;
     }
 
     .mySlides { display:none; width:100%; height:100%; align-items:center; justify-content:center; }
@@ -42,40 +38,34 @@
 
     .slide-image {
       width:100%;
-      max-width: 320px;
-      height: auto;
-      border-radius: 10px;
-      object-fit: contain;
+      max-width:760px;
+      height:auto;
+      border-radius:10px;
+      object-fit:contain;
       box-shadow: 0 8px 20px rgba(0,0,0,0.06);
       transition: transform .18s ease, box-shadow .18s ease;
       cursor: zoom-in;
-      display:block;
-      margin:0 auto;
     }
     .slide-image:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,0.12); }
 
     .prev, .next {
       position:absolute;
-      top:8px;
-      background: transparent;
-      color: #333;
-      font-weight: bold;
-      font-size: 20px;
-      cursor: pointer;
-      padding: 8px;
-      border-radius:6px;
-      border: none;
-      transition: color .18s ease, background .18s ease;
-      user-select: none;
-      z-index: 10;
+      top:50%;
+      transform:translateY(-50%);
+      background: rgba(0,0,0,0.6);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:8px;
+      border:none;
+      cursor:pointer;
+      z-index:10;
+      font-size:18px;
     }
-    .prev { left: 12px; }
-    .next { right: 12px; }
-    .prev:hover, .next:hover { color: #ffd700; background: rgba(0,0,0,0.04); }
+    .prev { left:14px; }
+    .next { right:14px; }
 
     .slideshow-dots { text-align:center; margin-top:12px; }
     .slideshow-dots .dot {
-      display:inline-block;
       width:12px; height:12px; margin:6px;
       background:#e0e0e0; border-radius:50%; cursor:pointer;
     }
@@ -88,8 +78,15 @@
       box-shadow:0 6px 20px rgba(0,0,0,0.04);
     }
 
-    .product-info h2 { margin-top:0; margin-bottom:12px; font-size:1.25rem; }
-    .product-info p, .product-info ul { color:#444; line-height:1.5; }
+    .selectors { display:flex; gap:12px; margin:12px 0; flex-wrap:wrap; }
+    select { padding:10px; border-radius:8px; border:1px solid #ddd; background:#fff; }
+
+    .actions { display:flex; gap:12px; align-items:center; margin-top:12px; }
+    .btn { padding:10px 14px; border-radius:8px; cursor:pointer; border: none; }
+    .btn-primary { background:#111; color:#fff; }
+    .btn-ghost { background:#fff; border:1px solid #ddd; color:#444; }
+
+    .price-inline { font-weight:700; font-size:1.25rem; margin-left:8px; }
 
     .lightbox {
       position:fixed; inset:0; display:none;
@@ -105,6 +102,31 @@
       box-shadow:0 30px 80px rgba(0,0,0,0.6);
       cursor:zoom-out;
     }
+
+    /* Cart item layout */
+    .cart li { display:flex; gap:12px; align-items:center; padding:8px 0; border-bottom:1px solid #f0f0f0; }
+    .cart .item-meta { flex:1; min-width:0; }
+    .cart .item-meta b { display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .cart .item-controls { display:flex; gap:8px; align-items:center; }
+    .cart .qty { width:64px; padding:6px 8px; border-radius:6px; border:1px solid #ddd; text-align:center; }
+    .cart .remove-btn { background:transparent; border:1px solid #e0e0e0; padding:6px 8px; border-radius:6px; cursor:pointer; color:#b00; }
+
+    /* Small toast for non-blocking confirmation */
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: rgba(0,0,0,0.85);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 3000;
+      font-size: 14px;
+    }
+    .toast.show { display: block; animation: fadeout 3s forwards; }
+    @keyframes fadeout { 0% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; display: none; } }
   </style>
 </head>
 
@@ -134,62 +156,86 @@
 
   <main class="page-content">
     <header style="margin-bottom:12px;">
-      <h1>Set of Three Candles</h1>
+      <h1>Tree Pillar Candle</h1>
     </header>
 
-    <section class="product-detail">
+    <section class="product-detail" aria-labelledby="product-title">
 
       <!-- ✅ Slideshow -->
       <div>
-        <div class="slideshow-container">
-          <button class="prev">&#10094;</button>
-          <button class="next">&#10095;</button>
+        <div class="slideshow-container" aria-roledescription="carousel" aria-label="Product images">
+          <div class="mySlides">
+            <img src="../images/treepillars.png" class="slide-image" alt="Tree pillar candle - All ">
+          </div>
+          <div class="mySlides">
+            <img src="../images/whitetreepillar.png" class="slide-image" alt="Tree pillar candle - Large white">
+          </div>
+          <div class="mySlides">
+            <img src="../images/smlgreentreepillar.png" class="slide-image" alt="Tree pillar candle - Small green">
+          </div>
+          <div class="mySlides">
+            <img src="../images/smlredtreepillar.png" class="slide-image" alt="Tree pillar candle - Small red">
+          </div>
 
-          <div class="mySlides"><img src="../images/three.png" class="slide-image"></div>
-          <div class="mySlides"><img src="../images/assumption.png" class="slide-image"></div>
-          <div class="mySlides"><img src="../images/cruxifixion.png" class="slide-image"></div>
-          <div class="mySlides"><img src="../images/holyfamilysml.png" class="slide-image"></div>
+          <button class="prev" type="button" aria-label="Previous slide">&#10094;</button>
+          <button class="next" type="button" aria-label="Next slide">&#10095;</button>
         </div>
 
-        <div class="slideshow-dots">
-          <button class="dot"></button>
-          <button class="dot"></button>
-          <button class="dot"></button>
-          <button class="dot"></button>
+        <div class="slideshow-dots" aria-hidden="false">
+          <button class="dot" type="button" aria-label="Go to slide 1"></button>
+          <button class="dot" type="button" aria-label="Go to slide 2"></button>
+          <button class="dot" type="button" aria-label="Go to slide 3"></button>
+          <button class="dot" type="button" aria-label="Go to slide 4"></button>
         </div>
 
-        <div id="lightbox" class="lightbox">
+        <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
           <img src="" alt="">
         </div>
       </div>
 
       <!-- ✅ Product info -->
-      <aside class="product-info">
-        <h1 style="font-size:1.1rem;margin:0 0 8px 0;">Set of Three Candles</h1>
-        <h2>$34.99</h2>
+      <aside class="product-info" aria-labelledby="product-title">
+        <h1 id="product-title" style="font-size:1.1rem;margin:0 0 8px 0;">Tree Pillar Candle</h1>
+        <h2 class="price"><span id="displayPrice">$11.99</span></h2>
 
-        <p>A set of three beautiful candles depicting the Holy Family, the Assumption, and the Crucifixion.</p>
+        <p>Hand-carved tree pillar candle with detailed texture. Available in three colors and two sizes.</p>
 
         <ul>
-          <li>Note: Colors that are not White or Yellow may vary</li>
+          <li>Colors: Green, Red, White</li>
+          <li>Sizes: Small, Large</li>
           <li>Made with natural wax</li>
-          <li>Dimensions: 5 × 9 cm each</li>
-          <li>Special color requests? Contact us!</li>
+          <li>Dimensions Small 6 x 7cm Large 6 x 13cm</li>
+          <li>Approx. burn time varies by size</li>
         </ul>
 
-        <div style="margin-top:12px;">
-          <label for="color">Choose a color:</label><br>
-          <select id="color" name="color" style="padding:10px;border-radius:8px;border:1px solid #ddd;background:#fff;">
-            <option value="white">White</option>
-            <option value="yellow">Yellow</option>
-          </select>
+        <div class="selectors" role="group" aria-label="Product options">
+          <div>
+            <label for="color">Choose a color</label><br>
+            <select id="color" name="color" aria-label="Select color">
+              <option value="Green">Green</option>
+              <option value="Red">Red</option>
+              <option value="White">White</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="size">Choose a size</label><br>
+            <select id="size" name="size" aria-label="Select size">
+              <option value="Small" data-price="11.99">Small — $11.99</option>
+              <option value="Large" data-price="19.00">Large — $19.99</option>
+            </select>
+          </div>
         </div>
 
-        <div style="margin-top:14px; display:flex; gap:12px; align-items:center;">
-          <button class="btn btn-primary add-to-cart" data-name="Set of Three Candles" data-price="34.99" style="padding:10px 14px;border-radius:8px;border:none;background:#111;color:#fff;cursor:pointer;">
-            Add to Cart
-          </button>
-          <a href="../shop.html" style="text-decoration:none; padding:10px 14px; border-radius:8px; border:1px solid #ddd; color:#444; background:#fff;">Keep Shopping</a>
+        <button id="addToCartBtn"
+        class="btn btn-primary add-to-cart"
+        data-name="Tree Pillar Candle"
+        data-price="11.99"
+        aria-label="Add Tree Pillar Candle to cart">
+  Add to Cart
+</button>
+
+          <a href="../shop.html" class="btn btn-ghost">Keep Shopping</a>
         </div>
       </aside>
     </section>
@@ -197,37 +243,24 @@
     <!-- ✅ Cart section -->
     <section class="cart" style="margin-top:28px;">
       <h2>Your Cart</h2>
-      <ul id="cart-items"></ul>
+      <ul id="cart-items" class="cart"></ul>
       <p id="cart-total">Total: $0.00</p>
       <button id="clear-cart">Clear Cart</button>
-      <a href="../checkout.html" id="checkout-btn" style="margin-left:8px;">Proceed to Checkout</a>
+      <a href="../checkout.html"><button id="checkout-btn">Proceed to Checkout</button></a>
     </section>
   </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
   <footer style="padding:18px 0; text-align:center; color:#666;">
     <p>&copy; 2025 Abee's Candles. All rights reserved.</p>
   </footer>
 
-  <!-- ✅ Load shared scripts -->
+  <!-- Shared scripts -->
   <script src="../script.js"></script>
   <script src="../cart.js"></script>
 
-  <!-- ✅ Click-outside to close search dropdown -->
-  <script>
-    document.addEventListener("click", function (event) {
-      const searchBar = document.querySelector(".search-bar");
-      const results = document.getElementById("searchResults");
-
-      if (!searchBar.contains(event.target)) {
-        results.innerHTML = "";
-        results.style.display = "none";
-      }
-    });
-  </script>
-
-</body>
-</html><!-- ✅ Your slideshow JS goes below this -->
-  <!-- Slideshow + lightbox (keeps controls above image) -->
+  <!-- Slideshow + lightbox + single-slide guard (keeps your working logic) -->
   <script>
     (function () {
       let slideIndex = 1;
@@ -259,15 +292,15 @@
       window.currentSlide = currentSlide;
 
       document.addEventListener('DOMContentLoaded', function () {
-        // If only one slide, hide controls and dots
         const s = slides();
+        // If only one slide, hide controls and dots to avoid clutter
         if (s.length <= 1) {
           if (prevBtn) prevBtn.style.display = 'none';
           if (nextBtn) nextBtn.style.display = 'none';
           if (dotsWrap) dotsWrap.style.display = 'none';
         }
 
-        // Wire controls
+        // Wire controls (safe even if hidden)
         if (prevBtn) prevBtn.addEventListener('click', () => plusSlides(-1));
         if (nextBtn) nextBtn.addEventListener('click', () => plusSlides(1));
         dots().forEach((dot, i) => dot.addEventListener('click', () => currentSlide(i + 1)));
@@ -295,12 +328,15 @@
             lightbox.classList.remove('open');
             if (lightboxImg) lightboxImg.src = '';
           }
-        });
-
-        // Initialize slideshow
+        })
+             // Initialize slideshow
         showSlides(slideIndex);
       });
     })();
   </script>
+
+  <!-- Load global cart LAST so it can attach listeners -->
+  <script src="../cart.js"></script>
+
 </body>
 </html>

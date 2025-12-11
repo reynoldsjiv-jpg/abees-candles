@@ -2,22 +2,35 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5MY5DL1KJB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5MY5DL1KJB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5MY5DL1KJB');
+  </script>
 
-  gtag('config', 'G-5MY5DL1KJB');
-</script>
   <meta charset="UTF-8">
   <title>Abee's Candles</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <!-- Navigation bar with logo -->
+
+  <!-- ✅ NAVBAR -->
   <nav class="navbar">
     <img src="images/logo.png" alt="Abee's Candles Logo" class="site-logo">
+
+    <!-- ✅ Search bar container -->
+    <div class="search-bar">
+      <input type="search" id="searchInput" placeholder="Search candles...">
+      <button id="searchBtn">Search</button>
+
+      <!-- ✅ Dropdown grid container -->
+      <div id="searchResults" class="search-results-grid"></div>
+    </div>
+
+    <!-- ✅ Navigation links -->
     <ul>
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="shop.html">Shop</a></li>
@@ -26,30 +39,35 @@
     </ul>
   </nav>
 
-  <!-- Hero section -->
+  <!-- ✅ HERO SECTION -->
   <header class="hero">
     <h1>Welcome to Abee's Candles</h1>
     <p>
-      Where light meets meaning. Our handcrafted candles are created with care and devotion, 
+      Where light meets meaning. Our handcrafted candles are created with care and devotion,
       blending timeless tradition with thoughtful design to bring warmth, peace, and inspiration into your home.
     </p>
     <a href="shop.html" class="cta-button">Discover the Collection</a>
   </header>
 
-  <!-- About section -->
+  <!-- ✅ ABOUT SECTION -->
   <main>
     <section class="intro">
       <h2>Our Mission</h2>
       <p>
-        At Abee’s Candles, we believe a candle is more than wax and flame — it is a symbol of hope, 
-        reflection, and connection. Each piece is made with respect and artistry, 
+        At Abee’s Candles, we believe a candle is more than wax and flame — it is a symbol of hope,
+        reflection, and connection. Each piece is made with respect and artistry,
         offering a way to honor tradition while creating moments of serenity in everyday life.
       </p>
     </section>
   </main>
-  <!-- Footer -->
-<footer>
-  <p>&copy; 2025 Abee's Candles. All rights reserved.</p>
-</footer>
+
+  <!-- ✅ FOOTER -->
+  <footer>
+    <p>&copy; 2025 Abee's Candles. All rights reserved.</p>
+  </footer>
+
+  <!-- ✅ SCRIPT -->
+  <script src="script.js"></script>
+
 </body>
 </html>

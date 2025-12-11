@@ -1,0 +1,58 @@
+[
+  {
+    "id": "assumption",
+    "name": "Assumption Candle",
+    "price": 14.99,
+    "image": "images/Assumption.png",
+    "tags": ["mary", "Assumption", "blue", "saint", "holy"]
+  },
+  {
+    "id": "christmastree",
+    "name": "Christmas Tree Candle",
+    "price": 12.99,
+    "image": "images/forest.png",
+    "tags": ["christmas", "tree", "holiday", "green", "winter"]
+  },
+  {
+    "id": "crucifixion",
+    "name": "Crucifixion Candle",
+    "price": 14.99,
+    "image": "images/cruxifixion.png",
+    "tags": ["jesus", "cross", "crucifixion", "holy", "lent"]
+  },
+  {
+    "id": "holyfamilysml",
+    "name": "Holy Family Candle",
+    "price": 14.99,
+    "image": "images/holyfamilysml.png",
+    "tags": ["holy family", "mary", "joseph", "jesus", "nativity"]
+  },
+  {
+    "id": "maddona",
+    "name": "Madonna Candle",
+    "price": 14.99,
+    "image": "images/maddona.png",
+    "tags": ["mary", "madonna", "blue", "saint"]
+  },
+  {
+    "id": "mary",
+    "name": "Mary Candle",
+    "price": 14.99,
+    "image": "images/mary.png",
+    "tags": ["mary", "saint", "blue", "holy"]
+  },
+  {
+    "id": "resurrection",
+    "name": "Resurrection Candle",
+    "price": 14.99,
+    "image": "images/resurrection.png",
+    "tags": ["jesus", "resurrection", "easter", "holy"]
+  },
+  {
+    "id": "three",
+    "name": "Three Kings Candle",
+    "price": 14.99,
+    "image": "images/three.png",
+    "tags": ["three kings", "epiphany", "christmas", "gold"]
+  }
+]

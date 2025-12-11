@@ -2,23 +2,24 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5MY5DL1KJB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5MY5DL1KJB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5MY5DL1KJB');
+  </script>
 
-  gtag('config', 'G-5MY5DL1KJB');
-</script>
   <meta charset="UTF-8">
   <title>Abee's Candles Shop</title>
   <link rel="stylesheet" href="style.css">
+
   <style>
     /* Sidebar cart */
     .cart-sidebar {
       position: fixed;
       top: 0;
-      right: -320px; /* hidden by default */
+      right: -320px;
       width: 300px;
       height: 100%;
       background: #fff;
@@ -28,7 +29,7 @@
       z-index: 1000;
     }
     .cart-sidebar.open {
-      right: 0; /* slide in */
+      right: 0;
     }
     .cart-header {
       display: flex;
@@ -55,10 +56,23 @@
     }
   </style>
 </head>
+
 <body>
-  <!-- Navigation bar -->
+
+  <!-- ✅ NAVBAR -->
   <nav class="navbar">
     <img src="images/logo.png" alt="Abee's Candles Logo" class="site-logo">
+
+    <!-- ✅ Search bar -->
+    <div class="search-bar">
+      <input type="search" id="searchInput" placeholder="Search candles...">
+      <button id="searchBtn">Search</button>
+
+      <!-- ✅ Search dropdown -->
+      <div id="searchResults" class="search-results-grid"></div>
+    </div>
+
+    <!-- ✅ Navigation links -->
     <ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="shop.html" class="active">Shop</a></li>
@@ -75,13 +89,14 @@
   <!-- Shop grid -->
   <main>
     <div class="shop-grid" id="shop-grid">
+
       <!-- Madonna Candle -->
       <div class="shop-item">
         <a href="Item-pages/maddona.html" class="shop-link">
           <img src="images/madonna.png" alt="Madonna Candle">
           <h3>Madonna Candle</h3>
           <p>Beautifully crafted candle honoring the Madonna.</p>
-          <p class="price">$7.99</p>
+          <p class="price">$24.99</p>
         </a>
         <button class="add-to-cart" data-name="Madonna Candle" data-price="7.99">Add to Cart</button>
       </div>
@@ -92,18 +107,18 @@
           <img src="images/mary.png" alt="Mary Candle">
           <h3>Mary Candle</h3>
           <p>Elegant candle featuring the Blessed Virgin Mary.</p>
-          <p class="price">$14.99</p>
+          <p class="price">$24.99</p>
         </a>
-        <button class="add-to-cart" data-name="Mary Candle" data-price="14.99">Add to Cart</button>
+        <button class="add-to-cart" data-name="Mary Candle" data-price="24.99">Add to Cart</button>
       </div>
 
       <!-- Christmas Trees -->
       <div class="shop-item">
         <a href="Item-pages/christmastree.html" class="shop-link">
           <img src="images/forest.png" alt="Christmas tree Candles">
-          <h3> Christmas Tree Candle</h3>
+          <h3>Christmas Tree Candle</h3>
           <p>Beautiful Candles that look like Christmas Trees.</p>
-          <p class="price">$7.99</p>
+          <p class="price">$4.99</p>
         </a>
         <button class="add-to-cart" data-name="Christmas Tree" data-price="7.99">Add to Cart</button>
       </div>
@@ -114,7 +129,7 @@
           <img src="images/cruxifixion.png" alt="Crucifixion Candle">
           <h3>Crucifixion Candle</h3>
           <p>Beautifully handcrafted candle depicting the Crucifixion.</p>
-          <p class="price">$7.99</p>
+          <p class="price">$11.99</p>
         </a>
         <button class="add-to-cart" data-name="Crucifixion Candle" data-price="7.99">Add to Cart</button>
       </div>
@@ -125,9 +140,9 @@
           <img src="images/resurection.jpeg" alt="Resurrection Candle">
           <h3>Resurrection Candle</h3>
           <p>Beautifully crafted candle honoring the Resurrection.</p>
-          <p class="price">$17.99</p>
+          <p class="price">$24.99</p>
         </a>
-        <button class="add-to-cart" data-name="Resurrection Candle" data-price="17.99">Add to Cart</button>
+        <button class="add-to-cart" data-name="Resurrection Candle" data-price="24.99">Add to Cart</button>
       </div>
 
       <!-- Small Holy Family Candle -->
@@ -136,9 +151,20 @@
           <img src="images/holyfamilysml.png" alt="Small Holy Family Candle">
           <h3>Small Holy Family Candle</h3>
           <p>Beautifully crafted candle honoring the Holy Family.</p>
-          <p class="price">$7.99</p>
+          <p class="price">$11.99</p>
         </a>
         <button class="add-to-cart" data-name="Small Holy Family Candle" data-price="7.99">Add to Cart</button>
+      </div>
+
+      <!-- Tree Pillar Candle -->
+      <div class="shop-item">
+        <a href="Item-pages/treepillar.html" class="shop-link">
+          <img src="images/treepillars.png" alt="Tree Pillar Candle">
+          <h3>Tree Pillar Candle</h3>
+          <p>Beautifully crafted pillar candle with trees.</p>
+          <p class="price">$11.99</p>
+        </a>
+        <button class="add-to-cart" data-name="Tree Pillar Candle" data-price="11.99">Add to Cart</button>
       </div>
 
       <!-- Set of Three -->
@@ -147,7 +173,7 @@
           <img src="images/three.png" alt="Set of Three Candles">
           <h3>Set of Three</h3>
           <p>Three Great Candles commemorating the Holy Family, the Assumption, and the Crucifixion.</p>
-          <p class="price">$19.99</p>
+          <p class="price">$34.99</p>
         </a>
         <button class="add-to-cart" data-name="Set of Three" data-price="19.99">Add to Cart</button>
       </div>
@@ -158,10 +184,11 @@
           <img src="images/Assumption.png" alt="Assumption Candle">
           <h3>Assumption Candle</h3>
           <p>A beautiful candle portraying the Assumption.</p>
-          <p class="price">$7.99</p>
+          <p class="price">$11.99</p>
         </a>
         <button class="add-to-cart" data-name="Assumption Candle" data-price="7.99">Add to Cart</button>
       </div>
+
     </div>
   </main>
 
@@ -185,10 +212,27 @@
     <p>&copy; 2025 Abee's Candles. All rights reserved.</p>
   </footer>
 
-  <!-- Load scripts -->
+  <!-- ✅ Load search script -->
+  <script src="script.js"></script>
+
+  <!-- ✅ Load cart script -->
   <script src="cart.js"></script>
+
+  <!-- ✅ Click-outside to close search dropdown -->
   <script>
-    // Sidebar toggle logic
+    document.addEventListener("click", function (event) {
+      const searchBar = document.querySelector(".search-bar");
+      const results = document.getElementById("searchResults");
+
+      if (!searchBar.contains(event.target)) {
+        results.innerHTML = "";
+        results.style.display = "none";
+      }
+    });
+  </script>
+
+  <!-- ✅ Sidebar toggle logic -->
+  <script>
     const cartSidebar = document.getElementById("cart-sidebar");
     const openCartBtn = document.getElementById("open-cart");
     const closeCartBtn = document.getElementById("close-cart");
@@ -202,5 +246,6 @@
       });
     }
   </script>
+
 </body>
 </html>

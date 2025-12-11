@@ -2,20 +2,20 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5MY5DL1KJB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5MY5DL1KJB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5MY5DL1KJB');
+  </script>
 
-  gtag('config', 'G-5MY5DL1KJB');
-</script>
   <meta charset="utf-8" />
   <title>Crucifixion Candle — Abee's Candles</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <link rel="stylesheet" href="../style.css" />
+
   <style>
-    /* Page helpers (main styling should remain in ../style.css) */
     .page-content { padding: 28px 20px; max-width: 1100px; margin: 0 auto; }
     .product-detail { display: grid; grid-template-columns: 1fr 520px; gap: 28px; align-items: start; }
     @media (max-width: 880px) { .product-detail { grid-template-columns: 1fr; } }
@@ -66,31 +66,59 @@
 
     .slideshow-dots { text-align:center; margin-top:12px; }
     .slideshow-dots .dot {
-      width:12px; height:12px; margin:6px; background:#e0e0e0; border-radius:50%; border:none; cursor:pointer;
+      width:12px; height:12px; margin:6px;
+      background:#e0e0e0; border-radius:50%; cursor:pointer;
     }
-    .slideshow-dots .dot.active { background:var(--accent,#ffb84d); box-shadow:0 4px 10px rgba(0,0,0,0.08); }
+    .slideshow-dots .dot.active { background:var(--accent,#ffb84d); }
 
-    .product-info { padding:18px; background:var(--card-bg,#fff); border-radius:8px; box-shadow:var(--card-shadow,0 6px 20px rgba(0,0,0,0.04)); }
-    .product-info h2 { margin-top:0; margin-bottom:12px; font-size:1.25rem; }
-    .product-info p, .product-info ul { color:var(--muted,#444); line-height:1.5; }
+    .product-info {
+      padding:18px;
+      background:var(--card-bg,#fff);
+      border-radius:8px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.04);
+    }
 
     .selectors { display:flex; gap:12px; margin:12px 0; flex-wrap:wrap; }
     select { padding:10px; border-radius:8px; border:1px solid #ddd; background:#fff; }
 
     .actions { display:flex; gap:12px; align-items:center; margin-top:12px; }
     .btn { padding:10px 14px; border-radius:8px; cursor:pointer; border: none; }
-    .btn-primary { background:var(--primary,#111); color:#fff; }
-    .btn-ghost { background:#fff; border:1px solid #ddd; color:var(--muted,#444); }
+    .btn-primary { background:#111; color:#fff; }
+    .btn-ghost { background:#fff; border:1px solid #ddd; color:#444; }
 
-    .lightbox { position:fixed; inset:0; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,0.75); z-index:2000; padding:20px; }
+    .lightbox {
+      position:fixed; inset:0; display:none;
+      align-items:center; justify-content:center;
+      background:rgba(0,0,0,0.75);
+      z-index:2000; padding:20px;
+    }
     .lightbox.open { display:flex; }
-    .lightbox img { max-width:calc(100% - 80px); max-height:calc(100% - 80px); border-radius:10px; box-shadow:0 30px 80px rgba(0,0,0,0.6); cursor:zoom-out; }
+    .lightbox img {
+      max-width:calc(100% - 80px);
+      max-height:calc(100% - 80px);
+      border-radius:10px;
+      box-shadow:0 30px 80px rgba(0,0,0,0.6);
+      cursor:zoom-out;
+    }
   </style>
 </head>
+
 <body>
-  <!-- Navigation bar -->
+
+  <!-- ✅ FIXED NAVBAR -->
   <nav class="navbar">
     <img src="../images/logo.png" alt="Abee's Candles Logo" class="site-logo">
+
+    <!-- ✅ Search bar -->
+    <div class="search-bar">
+      <input type="search" id="searchInput" placeholder="Search candles...">
+      <button id="searchBtn">Search</button>
+
+      <!-- ✅ Correct dropdown container -->
+      <div id="searchResults" class="search-results-grid"></div>
+    </div>
+
+    <!-- ✅ Navigation links -->
     <ul>
       <li><a href="../index.html">Home</a></li>
       <li><a href="../shop.html">Shop</a></li>
@@ -104,50 +132,46 @@
       <h1>Crucifixion Candle</h1>
     </header>
 
-    <section class="product-detail" aria-labelledby="product-title">
-      <!-- Slideshow (single image kept as a slide so JS/CSS remain consistent) -->
+    <section class="product-detail">
+
+      <!-- ✅ Slideshow -->
       <div>
-        <div class="slideshow-container" aria-roledescription="carousel" aria-label="Product images">
+        <div class="slideshow-container">
           <div class="mySlides">
             <img src="../images/cruxifixion.png" class="slide-image" alt="Crucifixion Candle">
           </div>
 
-          <!-- Prev/Next controls (will be hidden automatically when only one slide exists) -->
-          <button class="prev" type="button" aria-label="Previous slide">&#10094;</button>
-          <button class="next" type="button" aria-label="Next slide">&#10095;</button>
+          <button class="prev">&#10094;</button>
+          <button class="next">&#10095;</button>
         </div>
 
-        <!-- Dots (will be hidden automatically when only one slide exists) -->
-        <div class="slideshow-dots" aria-hidden="false">
-          <button class="dot" type="button" aria-label="Go to slide 1"></button>
+        <div class="slideshow-dots">
+          <button class="dot"></button>
         </div>
 
-        <!-- Lightbox for click-to-zoom -->
-        <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+        <div id="lightbox" class="lightbox">
           <img src="" alt="">
         </div>
       </div>
 
-      <!-- Product info -->
-      <aside class="product-info" aria-labelledby="product-title">
-        <h1 id="product-title" class="product-title" style="font-size:1.1rem;margin:0 0 8px 0;">Crucifixion Candle</h1>
-        <h2 class="price">$7.99</h2>
+      <!-- ✅ Product info -->
+      <aside class="product-info">
+        <h1 style="font-size:1.1rem;margin:0 0 8px 0;">Crucifixion Candle</h1>
+        <h2>$11.99</h2>
 
-        <p>
-          A beautifully crafted candle honoring the Crucifixion. Perfect for prayer, reflection, or as a meaningful gift.
-        </p>
+        <p>A beautifully crafted candle honoring the Crucifixion.</p>
 
         <ul>
-          <li>Note: Colors that are not White or Yellow may vary from image</li>
+          <li>Colors other than White or Yellow may vary</li>
           <li>Made with natural wax</li>
           <li>Dimensions: 5 × 9 cm</li>
-          <li>If you have special requests in terms of color, please contact us via the contact page</li>
+          <li>Special requests? Contact us!</li>
         </ul>
 
-        <div class="selectors" role="group" aria-label="Product options">
+        <div class="selectors">
           <div>
             <label for="color">Choose a color</label><br>
-            <select id="color" name="color" aria-label="Select color">
+            <select id="color" name="color">
               <option value="White">White</option>
               <option value="Yellow">Yellow</option>
               <option value="Blue">Blue</option>
@@ -156,34 +180,35 @@
         </div>
 
         <div class="actions">
-          <button class="btn btn-primary add-to-cart" id="add-to-cart" data-name="Crucifixion Candle" data-price="7.99" aria-label="Add Crucifixion Candle to cart">
+          <button class="btn btn-primary add-to-cart" data-name="Crucifixion Candle" data-price="11.99">
             Add to Cart
           </button>
 
-          <a href="../shop.html" class="btn btn-ghost" style="text-decoration:none;display:inline-flex;align-items:center;justify-content:center;">Keep Shopping</a>
+          <a href="../shop.html" class="btn btn-ghost">Keep Shopping</a>
         </div>
       </aside>
     </section>
 
-    <!-- Cart section -->
+    <!-- ✅ Cart section -->
     <section class="cart" style="margin-top:28px;">
       <h2>Your Cart</h2>
       <ul id="cart-items"></ul>
       <p id="cart-total">Total: $0.00</p>
       <button id="clear-cart">Clear Cart</button>
-      <a href="../checkout.html" class="checkout-link">
-        <button id="checkout-btn">Proceed to Checkout</button>
-      </a>
+      <a href="../checkout.html"><button id="checkout-btn">Proceed to Checkout</button></a>
     </section>
   </main>
 
-  <footer style="padding:18px 0; text-align:center; color:var(--muted,#666);">
+  <footer style="padding:18px 0; text-align:center; color:#666;">
     <p>&copy; 2025 Abee's Candles. All rights reserved.</p>
   </footer>
 
-  <!-- Shared scripts -->
+  <!-- ✅ Shared scripts -->
   <script src="../script.js"></script>
   <script src="../cart.js"></script>
+
+</body>
+</html>
 
   <!-- Slideshow + lightbox + single-slide guard -->
   <script>
