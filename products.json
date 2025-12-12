@@ -100,6 +100,7 @@
     "name": "Christmas Tree Pillar Candle",
     "price": 11.99,
     "images": [
+      "images/treepillars.png",
       "images/smlgreentreepillar.png",
       "images/smlredtreepillar.png",
       "images/whitetreepillar.png"
