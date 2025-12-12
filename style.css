@@ -1018,3 +1018,8 @@ select {
   text-align: center;
   color: #777;
 }
+.shop-item .description {
+  font-size: 0.9em;
+  color: #555;
+  margin: 5px 0 10px;
+}

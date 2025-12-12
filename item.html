@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5MY5DL1KJB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5MY5DL1KJB');
+  </script>
+
+  <meta charset="utf-8" />
+  <title>Abee's Candles — Product</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    .page-content { padding: 28px 20px; max-width: 1100px; margin: 0 auto; }
+    .product-detail { display: grid; grid-template-columns: 1fr 520px; gap: 28px; align-items: start; }
+    @media (max-width: 880px) { .product-detail { grid-template-columns: 1fr; } }
+
+    .slideshow-container {
+      background: var(--card-bg,#fff);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      position: relative;
+      overflow: hidden;
+      min-height: 420px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .mySlides { display:none; width:100%; height:100%; align-items:center; justify-content:center; }
+    .mySlides.active { display:flex; }
+
+    .slide-image {
+      width:100%;
+      max-width:760px;
+      height:auto;
+      border-radius:10px;
+      object-fit:contain;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      transition: transform .18s ease, box-shadow .18s ease;
+      cursor: zoom-in;
+    }
+    .slide-image:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,0.12); }
+
+    .prev, .next {
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      background: rgba(0,0,0,0.6);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:8px;
+      border:none;
+      cursor:pointer;
+      z-index:10;
+      font-size:18px;
+    }
+    .prev { left:14px; }
+    .next { right:14px; }
+
+    .slideshow-dots { text-align:center; margin-top:12px; display:flex; justify-content:center; flex-wrap:wrap; }
+    .slideshow-dots .dot {
+      width:12px; height:12px; margin:6px;
+      background:#e0e0e0; border-radius:50%; cursor:pointer; border:none;
+    }
+    .slideshow-dots .dot.active { background:var(--accent,#ffb84d); }
+
+    .product-info {
+      padding:18px;
+      background:var(--card-bg,#fff);
+      border-radius:8px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.04);
+    }
+
+    .selectors { display:flex; gap:12px; margin:12px 0; flex-wrap:wrap; }
+    .selectors > div { min-width: 160px; }
+    select { padding:10px; border-radius:8px; border:1px solid #ddd; background:#fff; }
+
+    .actions { display:flex; gap:12px; align-items:center; margin-top:12px; flex-wrap:wrap; }
+    .btn { padding:10px 14px; border-radius:8px; cursor:pointer; border: none; }
+    .btn-primary { background:#111; color:#fff; }
+    .btn-ghost { background:#fff; border:1px solid #ddd; color:#444; text-decoration:none; display:inline-block; }
+
+    .lightbox {
+      position:fixed; inset:0; display:none;
+      align-items:center; justify-content:center;
+      background:rgba(0,0,0,0.75);
+      z-index:2000; padding:20px;
+    }
+    .lightbox.open { display:flex; }
+    .lightbox img {
+      max-width:calc(100% - 80px);
+      max-height:calc(100% - 80px);
+      border-radius:10px;
+      box-shadow:0 30px 80px rgba(0,0,0,0.6);
+      cursor:zoom-out;
+    }
+
+    .product-description ul { margin-left: 1.2rem; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ✅ FIXED NAVBAR -->
+  <nav class="navbar">
+    <img src="images/logo.png" alt="Abee's Candles Logo" class="site-logo">
+
+    <!-- ✅ Search bar -->
+    <div class="search-bar">
+      <input type="search" id="searchInput" placeholder="Search candles...">
+      <button id="searchBtn">Search</button>
+      <div id="searchResults" class="search-results-grid"></div>
+    </div>
+
+    <!-- ✅ Navigation links -->
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main class="page-content">
+    <header style="margin-bottom:12px;">
+      <h1 id="product-title">Loading...</h1>
+    </header>
+
+    <section class="product-detail">
+
+      <!-- ✅ Slideshow (dynamic) -->
+      <div>
+        <div class="slideshow-container" id="slideshow-container">
+          <!-- Slides injected here -->
+          <button class="prev" id="prevBtn">&#10094;</button>
+          <button class="next" id="nextBtn">&#10095;</button>
+        </div>
+
+        <div class="slideshow-dots" id="slideshow-dots">
+          <!-- Dots injected here -->
+        </div>
+
+        <div id="lightbox" class="lightbox">
+          <img src="" alt="">
+        </div>
+      </div>
+
+      <!-- ✅ Product info (dynamic) -->
+      <aside class="product-info">
+        <h1 id="product-name" style="font-size:1.1rem;margin:0 0 8px 0;">Product</h1>
+        <h2 id="product-price">$0.00</h2>
+
+        <div class="product-description" id="product-description">
+          <!-- Description text injected here -->
+        </div>
+
+        <div class="selectors">
+          <!-- Size selector (shown only if product has sizes) -->
+          <div id="size-selector" style="display:none;">
+            <label for="size">Choose a size</label><br>
+            <select id="size" name="size"></select>
+          </div>
+
+          <!-- Color selector (always shown if colors exist) -->
+          <div id="color-selector" style="display:none;">
+            <label for="color">Choose a color</label><br>
+            <select id="color" name="color"></select>
+          </div>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-primary add-to-cart" id="add-to-cart-btn"
+                  data-name="" data-price="">
+            Add to Cart
+          </button>
+
+          <a href="shop.html" class="btn btn-ghost">Keep Shopping</a>
+        </div>
+      </aside>
+    </section>
+
+    <!-- ✅ Cart section -->
+    <section class="cart" style="margin-top:28px;">
+      <h2>Your Cart</h2>
+      <ul id="cart-items"></ul>
+      <p id="cart-total">Total: $0.00</p>
+      <button id="clear-cart">Clear Cart</button>
+      <a href="checkout.html"><button id="checkout-btn">Proceed to Checkout</button></a>
+    </section>
+  </main>
+
+  <footer style="padding:18px 0; text-align:center; color:#666;">
+    <p>&copy; 2025 Abee's Candles. All rights reserved.</p>
+  </footer>
+
+  <!-- ✅ Shared scripts -->
+  <script src="script.js"></script>
+  <script src="cart.js"></script>
+
+  <!-- ✅ Dynamic item page + slideshow logic -->
+  <script>
+    // Helper: get query param (?id=...)
+    function getQueryParam(key) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(key);
+    }
+
+    // Fetch products.json and init page
+    async function loadProductPage() {
+      const productId = getQueryParam('id');
+      if (!productId) {
+        document.getElementById('product-title').textContent = 'Product not found';
+        return;
+      }
+
+      try {
+        const res = await fetch('products.json');
+        if (!res.ok) throw new Error('Failed to load products.json');
+        const products = await res.json();
+
+        const product = products.find(p => p.id === productId);
+        if (!product) {
+          document.getElementById('product-title').textContent = 'Product not found';
+          return;
+        }
+
+        populateProductInfo(product);
+        initSlideshow(product.images || []);
+      } catch (err) {
+        console.error(err);
+        document.getElementById('product-title').textContent = 'Error loading product';
+      }
+    }
+
+    function populateProductInfo(product) {
+      // Title / Name
+      document.title = product.name + ' — Abee\'s Candles';
+      document.getElementById('product-title').textContent = product.name;
+      document.getElementById('product-name').textContent = product.name;
+
+      // Base price (used when no size or as default)
+      const priceEl = document.getElementById('product-price');
+      const addToCartBtn = document.getElementById('add-to-cart-btn');
+
+      let currentPrice = product.price || 0;
+      priceEl.textContent = '$' + currentPrice.toFixed(2);
+      addToCartBtn.dataset.price = currentPrice.toFixed(2);
+      addToCartBtn.dataset.name = product.name;
+
+      // Description
+      const descEl = document.getElementById('product-description');
+      descEl.innerHTML = '';
+      const p = document.createElement('p');
+      p.textContent = product.description || '';
+      descEl.appendChild(p);
+
+      // Sizes (optional)
+      const sizeWrapper = document.getElementById('size-selector');
+      const sizeSelect = document.getElementById('size');
+      sizeSelect.innerHTML = '';
+
+      if (Array.isArray(product.sizes) && product.sizes.length > 0) {
+        sizeWrapper.style.display = 'block';
+
+        product.sizes.forEach(sizeObj => {
+          const opt = document.createElement('option');
+          opt.value = sizeObj.label;
+          opt.textContent = sizeObj.label;
+          opt.dataset.price = sizeObj.price.toFixed(2);
+          sizeSelect.appendChild(opt);
+        });
+
+        function updatePriceFromSize() {
+          const selected = sizeSelect.options[sizeSelect.selectedIndex];
+          if (!selected) return;
+          const price = parseFloat(selected.dataset.price || product.price);
+          if (!isNaN(price)) {
+            priceEl.textContent = '$' + price.toFixed(2);
+            addToCartBtn.dataset.price = price.toFixed(2);
+          }
+        }
+
+        sizeSelect.addEventListener('change', updatePriceFromSize);
+        updatePriceFromSize();
+      } else {
+        sizeWrapper.style.display = 'none';
+      }
+
+      // Colors (all products have colors)
+      const colorWrapper = document.getElementById('color-selector');
+      const colorSelect = document.getElementById('color');
+      colorSelect.innerHTML = '';
+
+      if (Array.isArray(product.colors) && product.colors.length > 0) {
+        colorWrapper.style.display = 'block';
+
+        product.colors.forEach(color => {
+          const opt = document.createElement('option');
+          opt.value = color;
+          opt.textContent = color;
+          colorSelect.appendChild(opt);
+        });
+      } else {
+        colorWrapper.style.display = 'none';
+      }
+
+      // Attach selected size/color info to Add to Cart
+      const sizeSelectRef = sizeSelect;
+      const colorSelectRef = document.getElementById('color');
+
+      addToCartBtn.addEventListener('click', () => {
+        if (sizeWrapper.style.display !== 'none' && sizeSelectRef.value) {
+          addToCartBtn.dataset.size = sizeSelectRef.value;
+        } else {
+          addToCartBtn.dataset.size = '';
+        }
+
+        if (colorWrapper.style.display !== 'none' && colorSelectRef.value) {
+          addToCartBtn.dataset.color = colorSelectRef.value;
+        } else {
+          addToCartBtn.dataset.color = '';
+        }
+      });
+    }
+
+    // Slideshow logic
+    function initSlideshow(imagePaths) {
+      const container = document.getElementById('slideshow-container');
+      const dotsContainer = document.getElementById('slideshow-dots');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = lightbox.querySelector('img');
+
+      // Remove any existing slides/dots except nav buttons
+      [...container.querySelectorAll('.mySlides')].forEach(el => el.remove());
+      dotsContainer.innerHTML = '';
+
+      if (!imagePaths || imagePaths.length === 0) {
+        container.innerHTML = '<p>No images available.</p>';
+        return;
+      }
+
+      imagePaths.forEach((src, index) => {
+        // Slide
+        const slide = document.createElement('div');
+        slide.className = 'mySlides';
+        const img = document.createElement('img');
+        img.src = src;
+        img.className = 'slide-image';
+        img.alt = '';
+        img.addEventListener('click', () => {
+          lightboxImg.src = src;
+          lightbox.classList.add('open');
+        });
+        slide.appendChild(img);
+        container.insertBefore(slide, document.getElementById('prevBtn'));
+
+        // Dot
+        const dot = document.createElement('button');
+        dot.className = 'dot';
+        dot.addEventListener('click', () => showSlides(index + 1));
+        dotsContainer.appendChild(dot);
+      });
+
+      lightbox.addEventListener('click', () => {
+        lightbox.classList.remove('open');
+      });
+
+      let slideIndex = 1;
+
+      function showSlides(n) {
+        const slides = container.getElementsByClassName('mySlides');
+        const dots = dotsContainer.getElementsByClassName('dot');
+        const total = slides.length;
+        if (total === 0) return;
+
+        if (n > total) slideIndex = 1;
+        else if (n < 1) slideIndex = total;
+        else slideIndex = n;
+
+        for (let i = 0; i < total; i++) {
+          slides[i].style.display = 'none';
+        }
+        for (let i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(' active', '');
+        }
+
+        slides[slideIndex - 1].style.display = 'flex';
+        if (dots[slideIndex - 1]) {
+          dots[slideIndex - 1].className += ' active';
+        }
+      }
+
+      document.getElementById('prevBtn').onclick = function () {
+        showSlides(slideIndex - 1);
+      };
+      document.getElementById('nextBtn').onclick = function () {
+        showSlides(slideIndex + 1);
+      };
+
+      showSlides(slideIndex);
+    }
+
+    document.addEventListener('DOMContentLoaded', loadProductPage);
+  </script>
+</body>
+</html>
