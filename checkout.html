@@ -2,17 +2,18 @@
 <html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5MY5DL1KJB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5MY5DL1KJB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-5MY5DL1KJB');
+  </script>
 
-  gtag('config', 'G-5MY5DL1KJB');
-</script>
   <meta charset="UTF-8">
   <title>Checkout - Abee's Candles</title>
   <link rel="stylesheet" href="style.css">
+
   <style>
     .checkout {
       display: flex;
@@ -37,22 +38,41 @@
       padding: 0;
       text-align: center;
     }
+
+    /* ✅ ADDED: Pickup info styling */
+    .pickup-info {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f7f7f7;
+      border-radius: 8px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 0.95em;
+      line-height: 1.4em;
+    }
+    .pickup-info strong {
+      font-size: 1.05em;
+    }
   </style>
 </head>
+
 <body>
   <!-- Navigation -->
   <nav class="navbar">
     <img src="images/logo.png" alt="Abee's Candles Logo" class="site-logo">
     <ul>
       <div class="search-bar">
-  <input type="search" id="searchInput" placeholder="Search candles...">
-  <button id="searchBtn">Search</button>
-</div>
+        <input type="search" id="searchInput" placeholder="Search candles...">
+        <button id="searchBtn">Search</button>
+      </div>
+      <ul id="searchResults"></ul>
 
-<ul id="searchResults"></ul>
       <li><a href="index.html">Home</a></li>
       <li><a href="shop.html">Shop</a></li>
-      <li><a href="checkout.html" class="active">Checkout</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Checkout</a></li>
+      <li><a href="shipping.html">Shipping & Pickup Info</a></li>
     </ul>
   </nav>
 
@@ -62,9 +82,17 @@
     <p id="order-total"></p>
     <ul id="order-items"></ul>
     <p>Select your payment method below:</p>
+
+    <!-- ✅ ADDED: Pickup instructions -->
+    <div class="pickup-info">
+      <strong>Local Pickup (Free)</strong><br>
+      If you select Pickup, your order will be available at <strong>St. Joseph’s Parish</strong><br>
+      <strong>828 Buford Rd, Richmond, VA</strong><br>
+      We will email you when your order is ready to be picked up.
+    </div>
   </header>
 
-  <!-- PayPal/Venmo/Card Buttons -->
+  <!-- PayPal Buttons -->
   <main class="checkout">
     <div id="paypal-button-container"></div>
   </main>
@@ -78,11 +106,14 @@
   <script src="https://www.paypal.com/sdk/js?client-id=AVEviZ13Lr7f3cxhot-NoJ02NfJnbiA4XNqhCOXMFf3pkJnm7wIP2eI2Ot6vaEq7fmNLmK73jzIJb9f9&currency=USD&components=buttons,funding-eligibility"></script>
 
   <script>
-    // Load cart from localStorage
+    /* ---------------------------------------------------------
+       ✅ LOAD CART (object-based cart)
+    --------------------------------------------------------- */
     const cart = JSON.parse(localStorage.getItem("cart")) || {};
     let total = 0;
 
     const orderItemsList = document.getElementById("order-items");
+
     Object.keys(cart).forEach(name => {
       const item = cart[name];
       const li = document.createElement("li");
@@ -92,12 +123,13 @@
     });
 
     const orderTotalEl = document.getElementById("order-total");
-    if (total > 0) {
-      orderTotalEl.textContent = "Order Total: $" + total.toFixed(2);
-    } else {
-      orderTotalEl.textContent = "Your cart is empty.";
-    }
+    orderTotalEl.textContent = total > 0
+      ? "Order Total: $" + total.toFixed(2)
+      : "Your cart is empty.";
 
+    /* ---------------------------------------------------------
+       ✅ PAYPAL BUTTONS (with shipping address enabled)
+    --------------------------------------------------------- */
     paypal.Buttons({
       style: {
         layout: 'vertical',
@@ -106,12 +138,12 @@
         label: 'paypal',
         height: 40
       },
+
       createOrder: (data, actions) => {
-        // Build items array for PayPal
         const items = Object.keys(cart).map(name => {
           const item = cart[name];
           return {
-            name: name, // includes size + color from cart.js
+            name: name,
             unit_amount: { currency_code: "USD", value: item.price.toFixed(2) },
             quantity: item.quantity
           };
@@ -127,9 +159,13 @@
               }
             },
             items: items
-          }]
+          }],
+          application_context: {
+            shipping_preference: "GET_FROM_FILE"
+          }
         });
       },
+
       onApprove: (data, actions) => {
         return actions.order.capture().then(details => {
           localStorage.removeItem("cart");
@@ -137,11 +173,13 @@
           window.location.href = "thankyou.html";
         });
       },
+
       onError: (err) => {
         console.error(err);
         alert("Something went wrong with the payment. Please try again.");
       }
     }).render('#paypal-button-container');
   </script>
+
 </body>
 </html>

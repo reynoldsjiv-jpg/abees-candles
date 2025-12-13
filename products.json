@@ -3,11 +3,8 @@
     "id": "assumption",
     "name": "Assumption Candle",
     "price": 11.99,
-    "images": [
-      "images/Assumption.png",
-      "images/blueassumption.png",
-      "images/whiteassumption.png"
-    ],
+    "weight": 5,
+    "images": ["images/Assumption.png", "images/blueassumption.png", "images/whiteassumption.png"],
     "colors": ["White", "Yellow", "Blue"],
     "description": "A beautifully crafted candle honoring the Assumption of Mary.",
     "tags": ["mary", "Assumption", "blue", "saint", "holy"]
@@ -30,9 +27,9 @@
     ],
     "colors": ["White", "Yellow", "Dark Green", "Light Green"],
     "sizes": [
-      { "label": "Small", "price": 4.99 },
-      { "label": "Medium", "price": 17.99 },
-      { "label": "Large", "price": 19.99 }
+      { "label": "Small", "price": 4.99, "weight": 2.25 },
+      { "label": "Medium", "price": 17.99, "weight": 7 },
+      { "label": "Large", "price": 19.99, "weight": 8 }
     ],
     "description": "A festive candle shaped like a Christmas tree, perfect for holiday decor.",
     "tags": ["christmas", "tree", "holiday", "green", "winter", "forest", "pine", "spruce", "fir", "cedar", "nature", "evergreen", "seasonal", "festive", "celebration", "decor", "ornament"]
@@ -41,6 +38,7 @@
     "id": "crucifixion",
     "name": "Crucifixion Candle",
     "price": 11.99,
+    "weight": 5,
     "images": ["images/cruxifixion.png"],
     "colors": ["White", "Yellow"],
     "description": "A beautifully crafted candle honoring the Crucifixion.",
@@ -50,6 +48,7 @@
     "id": "holyfamilysml",
     "name": "Holy Family Candle",
     "price": 11.99,
+    "weight": 5,
     "images": ["images/holyfamilysml.png"],
     "colors": ["White", "Yellow"],
     "description": "A beautifully crafted candle honoring the Holy Family.",
@@ -59,11 +58,8 @@
     "id": "maddona",
     "name": "Madonna Candle",
     "price": 19.99,
-    "images": [
-      "images/madonna.png",
-      "images/bluemadonna.png",
-      "images/whitemadonna.png"
-    ],
+    "weight": 9,
+    "images": ["images/madonna.png", "images/bluemadonna.png", "images/whitemadonna.png"],
     "colors": ["White", "Yellow", "Blue"],
     "description": "A beautifully crafted candle honoring mother and child; the madonna.",
     "tags": ["mary", "madonna", "blue", "saint", "holy", "mother", "virgin", "motherhood"]
@@ -72,6 +68,7 @@
     "id": "mary",
     "name": "Mary Candle",
     "price": 24.99,
+    "weight": 11,
     "images": ["images/mary.png", "images/whitemary.png"],
     "colors": ["White", "Yellow"],
     "description": "A beautifully crafted candle honoring the Blessed Virgin Mary.",
@@ -81,6 +78,7 @@
     "id": "resurrection",
     "name": "Resurrection Candle",
     "price": 24.99,
+    "weight": 8,
     "images": ["images/resurection.jpeg"],
     "colors": ["White", "Yellow"],
     "description": "A beautifully crafted candle honoring the Resurrection of Jesus Christ.",
@@ -90,13 +88,14 @@
     "id": "three",
     "name": "Set of three Candles",
     "price": 34.99,
+    "weight": 15,
     "images": ["images/three.png"],
     "colors": ["White", "Yellow"],
     "description": "A set of three beautifully crafted candles honoring the Assumption, Crucifixion, and Holy Family.",
     "tags": ["Assumption", "crucifixion", "holy family", "gift set", "bundle", "trio", "set", "three"]
   },
   {
-    "id": "tree pillar",
+    "id": "treepillar",
     "name": "Christmas Tree Pillar Candle",
     "price": 11.99,
     "images": [
@@ -107,8 +106,8 @@
     ],
     "colors": ["White", "Yellow", "Green", "Red"],
     "sizes": [
-      { "label": "Small", "price": 11.99 },
-      { "label": "Large", "price": 19.99 }
+      { "label": "Small", "price": 11.99, "weight": 6 },
+      { "label": "Large", "price": 19.99, "weight": 12 }
     ],
     "description": "A festive pillar candle with christmas trees, perfect for holiday decor.",
     "tags": ["forest", "tree", "christmas", "pillar", "holiday", "winter"]

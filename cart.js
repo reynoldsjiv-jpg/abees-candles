@@ -1,4 +1,4 @@
-// cart.js — sidebar cart logic with color tracking and grid color indicators
+// cart.js — sidebar cart logic with color tracking, weights, and slideshow
 document.addEventListener("DOMContentLoaded", () => {
   // Load or initialize cart
   let cart = JSON.parse(localStorage.getItem("cart")) || {};
@@ -47,11 +47,19 @@ document.addEventListener("DOMContentLoaded", () => {
     Object.entries(cart).forEach(([name, item]) => {
       const li = document.createElement("li");
       li.className = "cart-item";
+
       li.innerHTML = `
         <div class="cart-item-row">
           <span class="cart-item-name">${escapeHtml(name)}</span>
           <span class="cart-item-meta">$${item.price.toFixed(2)} &times; ${item.quantity}</span>
         </div>
+        ${
+          item.weight
+            ? `<div class="cart-item-weight">
+                 Weight: ${(item.weight * item.quantity).toFixed(2)} oz
+               </div>`
+            : ""
+        }
       `;
 
       const controls = document.createElement("div");
@@ -109,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
   (function repairCart() {
     let changed = false;
     const entries = Object.entries(cart);
+
     for (const [k, v] of entries) {
       const p = parsePrice(v && v.price);
       if (!Number.isFinite(p) || p <= 0) {
@@ -116,16 +125,28 @@ document.addEventListener("DOMContentLoaded", () => {
         changed = true;
         continue;
       }
+
       const normalized = normalizeName(k);
+
+      const quantity = v.quantity && v.quantity > 0 ? v.quantity : 1;
+
       if (normalized !== k) {
-        cart[normalized] = { price: parseFloat(p.toFixed(2)), quantity: v.quantity || 1 };
+        cart[normalized] = {
+          price: parseFloat(p.toFixed(2)),
+          quantity: quantity,
+          weight: v.weight || null
+        };
         delete cart[k];
         changed = true;
       } else {
         cart[k].price = parseFloat(p.toFixed(2));
-        cart[k].quantity = v.quantity || 1;
+        cart[k].quantity = quantity;
+        if (v.weight !== undefined) {
+          cart[k].weight = v.weight;
+        }
       }
     }
+
     if (changed) saveCart();
   })();
 
@@ -150,7 +171,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function initColorIndicators() {
     const shopItems = document.querySelectorAll(".shop-item");
     shopItems.forEach(item => {
-      // skip if already has indicator
       if (item.querySelector(".color-indicator")) return;
 
       const colorSelect = item.querySelector('select[name="color"], select.color, select#color');
@@ -159,17 +179,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const indicator = document.createElement("span");
       indicator.className = "color-indicator";
       indicator.setAttribute("aria-hidden", "true");
-      // initial render
+
       const sel = colorSelect.options[colorSelect.selectedIndex];
       renderIndicator(indicator, sel && sel.value);
 
-      // update on change
       colorSelect.addEventListener("change", () => {
         const s = colorSelect.options[colorSelect.selectedIndex];
         renderIndicator(indicator, s && s.value);
       });
 
-      // insert indicator next to the add-to-cart button or title
       const btn = item.querySelector(".add-to-cart");
       if (btn) btn.parentNode.insertBefore(indicator, btn);
       else item.appendChild(indicator);
@@ -177,11 +195,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderIndicator(indicatorEl, colorValue) {
-    // colorValue can be a color name or hex; show text and swatch
     indicatorEl.textContent = "";
     const swatch = document.createElement("span");
     swatch.className = "color-swatch";
-    // try to set background; if invalid, fallback to transparent border
     swatch.style.background = colorValue || "transparent";
     swatch.title = colorValue || "";
     const label = document.createElement("span");
@@ -191,7 +207,7 @@ document.addEventListener("DOMContentLoaded", () => {
     indicatorEl.appendChild(label);
   }
 
-  /* Add to cart logic with color tracking */
+  /* Add to cart logic with color and weight tracking */
   document.addEventListener("click", (e) => {
     const btn = e.target.closest && e.target.closest(".add-to-cart");
     if (!btn) return;
@@ -199,20 +215,42 @@ document.addEventListener("DOMContentLoaded", () => {
     const baseName = btn.dataset.name || "Item";
     let priceFromBtn = parsePrice(btn.dataset.price);
 
+    // Look up product from global products array
+    const product = Array.isArray(window.products)
+      ? window.products.find(p => p.name === baseName)
+      : null;
+
     const { sizeSelect, colorSelect } = findSelectsForButton(btn);
 
     let finalName = baseName;
     let finalPrice = priceFromBtn;
+    let finalWeight = product && typeof product.weight === "number" ? product.weight : 0;
 
     const suffixParts = [];
+
+    // SIZE handling
     if (sizeSelect) {
       const selectedSize = sizeSelect.options[sizeSelect.selectedIndex];
       const sizeText = selectedSize ? selectedSize.value : "";
+
+      // price override from data-price
       const sizePrice = parsePrice(selectedSize && selectedSize.dataset && selectedSize.dataset.price);
       if (Number.isFinite(sizePrice)) finalPrice = sizePrice;
+
+      // weight override: from data-weight, or from product.sizes if available
+      let sizeWeight = parseFloat(selectedSize && selectedSize.dataset && selectedSize.dataset.weight);
+      if (!Number.isFinite(sizeWeight) && product && Array.isArray(product.sizes)) {
+        const sizeDef = product.sizes.find(s => s.label === sizeText);
+        if (sizeDef && typeof sizeDef.weight === "number") {
+          sizeWeight = sizeDef.weight;
+        }
+      }
+      if (Number.isFinite(sizeWeight)) finalWeight = sizeWeight;
+
       if (sizeText) suffixParts.push(sizeText);
     }
 
+    // COLOR handling
     if (colorSelect) {
       const selectedColor = colorSelect.options[colorSelect.selectedIndex];
       const colorText = selectedColor ? selectedColor.value : "";
@@ -242,7 +280,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (cart[finalName]) {
       cart[finalName].quantity += 1;
     } else {
-      cart[finalName] = { price: parseFloat(finalPrice.toFixed(2)), quantity: 1 };
+      cart[finalName] = {
+        price: parseFloat(finalPrice.toFixed(2)),
+        quantity: 1,
+        weight: Number.isFinite(finalWeight) ? finalWeight : 0
+      };
     }
 
     saveCart();
@@ -264,9 +306,10 @@ document.addEventListener("DOMContentLoaded", () => {
   if (checkoutBtn) {
     checkoutBtn.addEventListener("click", () => {
       let total = 0;
-      Object.values(cart).forEach(item => total += item.price * item.quantity);
+      Object.values(cart).forEach(item => {
+        total += item.price * item.quantity;
+      });
       localStorage.setItem("cartTotal", total.toFixed(2));
-      // Save snapshot for checkout page to read (line items)
       localStorage.setItem("cartSnapshot", JSON.stringify(cart));
       window.location.href = "checkout.html";
     });
@@ -283,16 +326,17 @@ document.addEventListener("DOMContentLoaded", () => {
   initColorIndicators();
   updateCartUI();
 });
-// --- Slideshow module (paste into cart.js) ---
+
+// --- Slideshow module ---
 (function () {
   let slideIndex = 1;
 
-  const slides = () => Array.from(document.getElementsByClassName('mySlides'));
-  const dots = () => Array.from(document.getElementsByClassName('dot'));
-  const prevBtn = () => document.querySelector('.prev');
-  const nextBtn = () => document.querySelector('.next');
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = lightbox ? lightbox.querySelector('img') : null;
+  const slides = () => Array.from(document.getElementsByClassName("mySlides"));
+  const dots = () => Array.from(document.getElementsByClassName("dot"));
+  const prevBtn = () => document.querySelector(".prev");
+  const nextBtn = () => document.querySelector(".next");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = lightbox ? lightbox.querySelector("img") : null;
 
   function showSlides(n) {
     const s = slides();
@@ -300,10 +344,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!s.length) return;
     if (n > s.length) slideIndex = 1;
     if (n < 1) slideIndex = s.length;
-    s.forEach(sl => sl.style.display = 'none');
-    d.forEach(dot => dot.classList.remove('active'));
-    s[slideIndex - 1].style.display = 'flex';
-    if (d[slideIndex - 1]) d[slideIndex - 1].classList.add('active');
+    s.forEach(sl => (sl.style.display = "none"));
+    d.forEach(dot => dot.classList.remove("active"));
+    s[slideIndex - 1].style.display = "flex";
+    if (d[slideIndex - 1]) d[slideIndex - 1].classList.add("active");
   }
 
   function plusSlides(n) {
@@ -316,47 +360,42 @@ document.addEventListener("DOMContentLoaded", () => {
     showSlides(slideIndex);
   }
 
-  // Expose for legacy inline handlers if needed
   window.plusSlides = plusSlides;
   window.currentSlide = currentSlide;
 
-  document.addEventListener('DOMContentLoaded', function () {
-    // Wire prev/next
+  document.addEventListener("DOMContentLoaded", function () {
     const p = prevBtn();
     const nx = nextBtn();
-    if (p) p.addEventListener('click', () => plusSlides(-1));
-    if (nx) nx.addEventListener('click', () => plusSlides(1));
+    if (p) p.addEventListener("click", () => plusSlides(-1));
+    if (nx) nx.addEventListener("click", () => plusSlides(1));
 
-    // Wire dots
-    dots().forEach((dot, i) => dot.addEventListener('click', () => currentSlide(i + 1)));
+    dots().forEach((dot, i) => dot.addEventListener("click", () => currentSlide(i + 1)));
 
-    // Click image to open lightbox
-    document.querySelectorAll('.slide-image').forEach(img => {
-      img.addEventListener('click', () => {
+    document.querySelectorAll(".slide-image").forEach(img => {
+      img.addEventListener("click", () => {
         if (!lightbox || !lightboxImg) return;
         lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt || '';
-        lightbox.classList.add('open');
+        lightboxImg.alt = img.alt || "";
+        lightbox.classList.add("open");
       });
     });
 
-    // Lightbox close and keyboard navigation
     if (lightbox) {
-      lightbox.addEventListener('click', () => {
-        lightbox.classList.remove('open');
-        if (lightboxImg) lightboxImg.src = '';
+      lightbox.addEventListener("click", () => {
+        lightbox.classList.remove("open");
+        if (lightboxImg) lightboxImg.src = "";
       });
     }
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') plusSlides(-1);
-      if (e.key === 'ArrowRight') plusSlides(1);
-      if (e.key === 'Escape' && lightbox && lightbox.classList.contains('open')) {
-        lightbox.classList.remove('open');
-        if (lightboxImg) lightboxImg.src = '';
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") plusSlides(-1);
+      if (e.key === "ArrowRight") plusSlides(1);
+      if (e.key === "Escape" && lightbox && lightbox.classList.contains("open")) {
+        lightbox.classList.remove("open");
+        if (lightboxImg) lightboxImg.src = "";
       }
     });
 
-    // Initialize
     showSlides(slideIndex);
   });
 })();
