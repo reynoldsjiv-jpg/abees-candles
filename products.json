@@ -45,13 +45,13 @@
     "tags": ["jesus", "cross", "crucifixion", "holy", "lent", "sacrifice", "good friday", "passion", "redeemer", "savior", "salvation", "atonement", "redemption"]
   },
   {
-    "id": "holyfamilysml",
-    "name": "Holy Family Candle",
+    "id": "holyfamilypillar",
+    "name": "Holy Family Pillar Candle",
     "price": 11.99,
     "weight": 5,
     "images": ["images/holyfamilysml.png"],
     "colors": ["White", "Yellow"],
-    "description": "A beautifully crafted candle honoring the Holy Family.",
+    "description": "A beautifully crafted pillar candle honoring the Holy Family.",
     "tags": ["holy family", "mary", "joseph", "jesus", "nativity", "joseph", "mother", "father", "child", "family", "holy"]
   },
   {
