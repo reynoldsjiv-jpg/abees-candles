@@ -1023,3 +1023,12 @@ select {
   color: #555;
   margin: 5px 0 10px;
 }
+footer a {
+  color: inherit;        /* same color as the surrounding text */
+  text-decoration: none; /* removes underline */
+  font-weight: normal;
+}
+
+footer a:hover {
+  text-decoration: underline; /* optional: underline only on hover */
+}
