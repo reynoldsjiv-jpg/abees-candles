@@ -1031,4 +1031,14 @@ footer a {
 
 footer a:hover {
   text-decoration: underline; /* optional: underline only on hover */
+}.product-card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}.product-card img {
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  object-fit: contain;
 }
