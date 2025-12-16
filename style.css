@@ -1042,3 +1042,20 @@ footer a:hover {
   border-radius: 6px;
   object-fit: contain;
 }
+.product-card {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.product-card img {
+  background: #fff;
+  padding: 10px;
+  border-radius: 6px;
+  object-fit: contain;
+}
+body,
+.shop-grid {
+  background: #fff !important;
+}
