@@ -62,7 +62,7 @@
     "name": "Madonna Candle",
     "price": 19.99,
     "weight": 9,
-    "images": ["images/madonna.png", "images/bluemadonna.png", "images/whitemadonna.png"],
+     "images": ["images/madonna.png", "images/bluemadonna.png", "images/whitemadonna.png","images/madonnaforest.png"],
     "colors": ["White", "Yellow", "Blue"],
     "description": "A beautifully crafted candle honoring mother and child; the madonna.",
     "notes": "Dimensions: 6 × 6 × 9.5 cm",
@@ -129,5 +129,16 @@
     "description": "A small beautifully crafted candle honoring the Holy Family.",
     "notes": "Dimensions: 7 × 5 × 9 cm",
     "tags": ["holy family", "mary", "joseph", "jesus", "nativity", "mother", "father", "child", "family", "holy"]
+  },
+  {
+    "id": "holyfamilylarge",
+    "name": "Large Holy Family Candle",
+    "price": 34.99,
+    "weight": 17,
+     "images": ["images/holyfamilylarge.png"],
+    "colors": ["White", "Yellow"],
+    "description": "A large beautifully crafted candle honoring the Holy Family.",
+    "notes": "Dimensions: 13 × 5 × 16cm",
+    "tags": ["holy family", "mary", "joseph", "jesus", "nativity", "mother", "father", "child", "family", "holy", "large"]
   }
 ]
