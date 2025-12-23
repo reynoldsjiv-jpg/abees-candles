@@ -4,7 +4,6 @@
 *::after {
   box-sizing: border-box;
 }
-
 body,
 ul,
 h1,
@@ -18,11 +17,9 @@ button {
   color: #333;
   line-height: 1.6;
 }
-
 body {
   background-color: #fafafa; /* light neutral background */
 }
-
 /* Navbar */
 .navbar {
   background: #f4e1d2;
@@ -56,7 +53,6 @@ body {
   height: auto;
   display: block;
 }
-
 /* Header */
 header {
   background: #fff8f2;
@@ -69,7 +65,6 @@ header h1 {
   letter-spacing: 0.5px;
   margin-bottom: 0.5em;
 }
-
 /* Hero (Home page) */
 .hero {
   background: #fff8f2;
@@ -102,7 +97,6 @@ header h1 {
 .cta-button:hover {
   background: #7a3d20;
 }
-
 /* Main wrapper */
 main {
   max-width: 1100px;
@@ -110,7 +104,6 @@ main {
   padding: 40px 20px;
   text-align: center;
 }
-
 /* About page */
 .intro {
   margin-bottom: 40px;
@@ -126,7 +119,6 @@ main {
   margin: 0 auto 20px auto;
   max-width: 700px;
 }
-
 /* Shop grid */
 .shop-grid {
   display: grid;
@@ -141,7 +133,6 @@ main {
   text-align: center;
   padding: 30px;
 }
-
 /* Shop link card */
 .shop-link {
   display: block;
@@ -174,7 +165,6 @@ main {
   color: #a0522d;
   margin: 10px 0;
 }
-
 /* Product detail layout */
 .product-detail {
   display: flex;
@@ -217,7 +207,6 @@ main {
 .product-info li {
   margin: 6px 0;
 }
-
 .add-to-cart {
   background-color: #ffd700;
   border: none;
@@ -230,7 +219,6 @@ main {
 .add-to-cart:hover {
   background-color: #e6c200;
 }
-
 #keep-shopping-btn {
   background-color: #007bff;
   color: #fff;
@@ -245,8 +233,6 @@ main {
 #keep-shopping-btn:hover {
   background-color: #0056b3;
 }
-
-/* Cart section */
 /* Cart section */
 .cart {
   background: #fff;
@@ -261,7 +247,6 @@ main {
   margin-bottom: 15px;
   color: #444;
 }
-
 #clear-cart,
 #checkout-btn {
   background-color: #a0522d;
@@ -278,7 +263,6 @@ main {
 #checkout-btn:hover {
   background-color: #7a3d20;
 }
-
 /* Checkout page */
 .checkout-form {
   max-width: 600px;
@@ -320,7 +304,6 @@ main {
 .checkout-form button:hover {
   background-color: #0056b3;
 }
-
 /* Contact page */
 .contact-form {
   max-width: 600px;
@@ -361,7 +344,6 @@ main {
 .contact-form button:hover {
   background-color: #7a3d20;
 }
-
 /* Footer */
 footer {
   background: #f4e1d2;
@@ -373,7 +355,6 @@ footer p {
   font-size: 1rem;
   color: #444;
 }
-
 /* Responsive adjustments */
 @media (max-width: 900px) {
   .product-detail {
@@ -390,7 +371,6 @@ footer p {
     max-width: 100%;
   }
 }
-
 @media (max-width: 600px) {
   .navbar {
     flex-direction: column;
@@ -421,7 +401,6 @@ footer p {
   transform: translateY(0);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
 }
-
 /* Focus outlines for keyboard users */
 .add-to-cart:focus,
 .cart-decrement:focus,
@@ -433,7 +412,6 @@ footer p {
   outline-offset: 2px;
   border-radius: 8px;
 }
-
 /* Disabled state */
 .add-to-cart[disabled],
 .cart-decrement[disabled],
@@ -444,9 +422,6 @@ footer p {
   transform: none;
   box-shadow: none;
 }
-
-/* ---------- Floating cart toggle and close ---------- */
-
 /* Close button inside sidebar */
 .close-btn {
   background: transparent;
@@ -457,7 +432,6 @@ footer p {
   padding: 6px;
   border-radius: 6px;
 }
-
 /* Small responsive tweak */
 @media (max-width: 640px) {
   .cart-sidebar {
@@ -477,7 +451,6 @@ footer p {
     box-sizing: border-box;
   }
 }
-
 /* Product page adjustments (renamed to avoid conflicts) */
 .page-content {
   padding: 28px 20px;
@@ -487,7 +460,6 @@ footer p {
   margin-bottom: 12px;
   font-size: 0.95rem;
 }
-
 .product-page {
   display: grid;
   grid-template-columns: 1fr 420px;
@@ -509,7 +481,6 @@ footer p {
   border-radius: 8px;
   display: block;
 }
-
 /* ✅ RENAMED to avoid overriding .product-info used in item-pages */
 .product-info-card {
   background: var(--card-bg, #fff);
@@ -517,7 +488,6 @@ footer p {
   border-radius: 10px;
   box-shadow: var(--card-shadow, 0 6px 20px rgba(0, 0, 0, 0.04));
 }
-
 .product-title {
   margin: 0 0 8px;
   font-size: 1.6rem;
@@ -527,7 +497,6 @@ footer p {
   margin-bottom: 14px;
   line-height: 1.5;
 }
-
 .price-row {
   display: flex;
   align-items: baseline;
@@ -544,7 +513,6 @@ footer p {
   text-decoration: line-through;
   font-size: 0.95rem;
 }
-
 .selectors {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -565,7 +533,6 @@ select {
   background: #fff;
   font-size: 0.95rem;
 }
-
 .actions {
   display: flex;
   gap: 12px;
@@ -586,7 +553,6 @@ select {
   font-size: 0.9rem;
   color: #666;
 } 
-
 .color-preview {
   display: inline-flex;
   align-items: center;
@@ -600,7 +566,6 @@ select {
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.08);
 }
-
 /* Cart sidebar (consistent with site) */
 .cart-sidebar {
   position: fixed;
@@ -659,7 +624,6 @@ select {
   background: #fff;
   border: 1px solid #ddd;
 }
-
 /* Floating cart button */
 .open-cart-btn {
   position: fixed;
@@ -675,7 +639,6 @@ select {
   cursor: pointer;
   z-index: 1199;
 }
-
 /* Responsive */
 @media (max-width: 880px) {
   .product-page {
@@ -692,10 +655,6 @@ select {
     right: 0;
   }
 }
-
-/* ✅ REMOVED: product-detail grid overrides */
-/* ✅ Your .product-detail flex layout remains intact */
-
 /* Slideshow: polished, larger images */
 .slideshow-container {
   background: var(--card-bg, #fff);
@@ -709,7 +668,6 @@ select {
   justify-content:center;
   min-height: auto;
 }
-
 /* Each slide is centered */
 .mySlides {
   display:none;
@@ -729,13 +687,11 @@ select {
   transition: transform .18s ease, box-shadow .18s ease;
   cursor: zoom-in;
 }
-
 /* Hover subtle lift */
 .slide-image:hover {
   transform: translateY(-4px);
   box-shadow: 0 18px 40px rgba(0,0,0,0.12);
 }
-
 /* Controls */
 .prev, .next {
   position:absolute;
@@ -773,7 +729,6 @@ select {
   background:var(--accent,#ffb84d);
   box-shadow:0 4px 10px rgba(0,0,0,0.08);
 }
-
 /* Lightbox overlay */
 .lightbox {
   position:fixed;
@@ -813,7 +768,6 @@ select {
   align-items: center !important;
   justify-content: center;
 }
-
 .slide-image {
   max-width: 550px;  /* bigger images */
   max-height: 450px; /* taller but safe */
@@ -827,7 +781,6 @@ select {
   align-items: center !important;
   justify-content: center;
 }
-
 /* Image size tuned to match the box */
 .slide-image {
   max-width: 420px !important;
@@ -844,12 +797,10 @@ select {
   max-width: 380px !important;  /* prevents it from dominating */
   min-width: 300px !important;  /* ensures it doesn't collapse */
 }
-
 .product-detail > .product-info {
   flex: 1 1 360px !important;   /* protects text but not too wide */
   min-width: 340px !important;  /* enough room for readable text */
 }/* Make the search bar a positioning container */
-
 /* --- SEARCH BAR LAYOUT --- */
 .search-bar {
   position: relative;
@@ -857,7 +808,6 @@ select {
   align-items: center;
   gap: 8px;
 }
-
 /* Input + button, just to keep them neat */
 #searchInput {
   flex: 1;
@@ -867,7 +817,6 @@ select {
   background: #fff;
   color: #333;
 }
-
 #searchBtn {
   padding: 8px 12px;
   border-radius: 6px;
@@ -876,7 +825,6 @@ select {
   color: #fff;
   cursor: pointer;
 }
-
 /* --- DROPDOWN GRID CONTAINER --- */
 .search-results-grid {
   position: absolute;
@@ -897,7 +845,6 @@ select {
   gap: 12px;
   z-index: 999;
 }
-
 /* --- INDIVIDUAL CARDS --- */
 .search-card {
   background: #fff !important;
@@ -906,7 +853,6 @@ select {
   padding: 8px;
   text-align: center;
 }
-
 /* Kill any weird overlays / pseudo elements coming from older global styles */
 .search-card::before,
 .search-card::after,
@@ -914,7 +860,6 @@ select {
 .search-results-grid::after {
   content: none !important;
 }
-
 /* Images inside the cards */
 .search-card img {
   display: block;
@@ -925,14 +870,12 @@ select {
   border-radius: 6px;
   margin-bottom: 6px;
 }
-
 /* Text */
 .search-card h4 {
   margin: 0;
   font-size: 0.95rem;
   color: #333;
 }
-
 /* No-results text, still within the dropdown */
 .no-results {
   grid-column: 1 / -1;
@@ -949,18 +892,15 @@ footer a {
   text-decoration: none; /* removes underline */
   font-weight: normal;
 }
-
 footer a:hover {
   text-decoration: underline; /* optional: underline only on hover */
 }
-
 .product-card {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
-
 .product-card img {
   background: #fff;
   padding: 10px;
