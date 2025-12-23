@@ -140,5 +140,25 @@
     "description": "A large beautifully crafted candle honoring the Holy Family.",
     "notes": "Dimensions: 13 × 5 × 16cm",
     "tags": ["holy family", "mary", "joseph", "jesus", "nativity", "mother", "father", "child", "family", "holy", "large"]
+  },
+   {
+    "id": "candlestick",
+    "name": "Candlestick",
+    "price": 2.99,
+    "images": [
+      "images/candlestick1.png",
+      "images/candlestick2.png",
+      "images/candlestick3.png",
+      "images/candlestick4.png"
+    ],
+    "colors": ["White", "Yellow", "Green", "Red", "Blue"],
+    "sizes": [
+      { "label": "Design 1", "price": 2.99, "weight": 2, "dimensions": "2 × 2 × 20 cm" },
+      { "label": "Design 2", "price": 2.99, "weight": 2, "dimensions": "2 × 2 × 20 cm" },
+      { "label": "Design 3", "price": 2.99, "weight": 2, "dimensions": "2 × 2 × 20 cm" },
+      { "label": "Design 4", "price": 2.99, "weight": 2, "dimensions": "2 × 2 × 20 cm" }
+    ],
+    "description": "A festive pillar candle with christmas trees, perfect for holiday decor.",
+    "tags": ["forest", "tree", "christmas", "pillar", "holiday", "winter"]
   }
 ]
