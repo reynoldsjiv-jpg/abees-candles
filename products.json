@@ -160,5 +160,16 @@
     ],
     "description": "A festive pillar candle with christmas trees, perfect for holiday decor.",
     "tags": ["forest", "tree", "christmas", "pillar", "holiday", "winter"]
+  },
+  {
+    "id": "jesushead",
+    "name": "Jesus Head Candle",
+    "price": 21.99,
+    "weight": 8,
+    "images": ["images/jesushead.png"],
+    "colors": ["White", "Yellow"],
+    "description": "A beautifully crafted candle honoring the Head of Jesus Christ.",
+    "notes": "Dimensions: 7 × 3 × 15 cm",
+    "tags": ["jesus", "head", "holy", "cross", "passion"]
   }
 ]
