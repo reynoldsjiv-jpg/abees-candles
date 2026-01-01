@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const cartItemsList = document.getElementById("cart-items");
   const cartTotalEl = document.getElementById("cart-total");
   const clearCartBtn = document.getElementById("clear-cart");
-  const checkoutBtn = document.getElementById("checkout-btn");
   const cartSidebar = document.getElementById("cart-sidebar");
   const openCartBtn = document.getElementById("open-cart");
   const closeCartBtn = document.getElementById("close-cart");
@@ -311,7 +310,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       localStorage.setItem("cartTotal", total.toFixed(2));
       localStorage.setItem("cartSnapshot", JSON.stringify(cart));
-      window.location.href = "checkout.html";
     });
   }
 
